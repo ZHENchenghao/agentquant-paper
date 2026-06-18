@@ -1,0 +1,43 @@
+name: AgentQuant ML 每日纸交
+
+on:
+  schedule:
+    - cron: '0 1 * * 1-5'  # UTC 1:00 = 北京时间9:00, 周一至周五
+  workflow_dispatch:  # 手动触发
+
+jobs:
+  paper-trade:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 安装依赖
+        run: |
+          pip install pandas numpy lightgbm scipy pyarrow -q
+
+      - name: 下载因子缓存
+        run: |
+          if [ ! -f cache/factors_all.parquet ]; then
+            echo "⚠ 因子缓存缺失，需本地首次上传"
+            wget -q "https://raw.githubusercontent.com/ZHENchenghao/agentquant-paper/master/cache/factors_all.parquet" -O cache/factors_all.parquet 2>/dev/null || echo "需配置缓存"
+          fi
+          ls -lh cache/ 2>/dev/null || mkdir -p cache
+
+      - name: 运行ML纸交
+        run: python cloud_paper_trade.py
+
+      - name: Git存档
+        run: |
+          git config user.name "AgentQuant-Bot"
+          git config user.email "bot@agentquant.local"
+          git add paper_portfolio.json paper_daily_log.md
+          git diff --staged --quiet || git commit -m "纸交 $(date +%Y-%m-%d)"
+          git push
