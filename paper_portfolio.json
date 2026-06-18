@@ -1,5 +1,5 @@
 {
-  "cash": 34609.99424999999,
+  "cash": 19730.84324999999,
   "positions": {
     "sz000999": {
       "shares": 100,
@@ -12,27 +12,27 @@
       "buy_date": "2026-06-12"
     },
     "sz002515": {
-      "shares": 400,
+      "shares": 100,
       "buy_price": 7.53,
       "buy_date": "2026-06-12"
     },
     "sz002481": {
-      "shares": 800,
+      "shares": 200,
       "buy_price": 4.08,
       "buy_date": "2026-06-12"
     },
     "sz300525": {
-      "shares": 300,
+      "shares": 100,
       "buy_price": 9.18,
       "buy_date": "2026-06-12"
     },
     "sz300066": {
-      "shares": 500,
+      "shares": 200,
       "buy_price": 5.74,
       "buy_date": "2026-06-12"
     },
     "sz300182": {
-      "shares": 600,
+      "shares": 200,
       "buy_price": 5.51,
       "buy_date": "2026-06-12"
     },
@@ -42,37 +42,37 @@
       "buy_date": "2026-06-12"
     },
     "sz300070": {
-      "shares": 900,
+      "shares": 300,
       "buy_price": 3.54,
       "buy_date": "2026-06-12"
     },
     "sz000166": {
-      "shares": 700,
+      "shares": 200,
       "buy_price": 4.53,
       "buy_date": "2026-06-12"
     },
     "sz000597": {
-      "shares": 700,
+      "shares": 200,
       "buy_price": 4.58,
       "buy_date": "2026-06-12"
     },
     "sz300376": {
-      "shares": 500,
+      "shares": 100,
       "buy_price": 6.18,
       "buy_date": "2026-06-12"
     },
     "sz300292": {
-      "shares": 600,
+      "shares": 200,
       "buy_price": 5.49,
       "buy_date": "2026-06-12"
     },
     "sh600398": {
-      "shares": 500,
+      "shares": 100,
       "buy_price": 5.96,
       "buy_date": "2026-06-12"
     },
     "sz002839": {
-      "shares": 700,
+      "shares": 200,
       "buy_price": 4.3,
       "buy_date": "2026-06-12"
     },
@@ -82,27 +82,27 @@
       "buy_date": "2026-06-12"
     },
     "sz002004": {
-      "shares": 700,
+      "shares": 200,
       "buy_price": 4.62,
       "buy_date": "2026-06-12"
     },
     "sz300146": {
-      "shares": 300,
+      "shares": 100,
       "buy_price": 9.89,
       "buy_date": "2026-06-12"
     },
     "sh601636": {
-      "shares": 500,
+      "shares": 100,
       "buy_price": 6.51,
       "buy_date": "2026-06-12"
     },
     "sh600166": {
-      "shares": 1000,
+      "shares": 300,
       "buy_price": 3.1,
       "buy_date": "2026-06-12"
     },
     "sh601997": {
-      "shares": 500,
+      "shares": 100,
       "buy_price": 5.81,
       "buy_date": "2026-06-12"
     },
@@ -325,6 +325,159 @@
       "date": "2026-06-17",
       "action": "SNAPSHOT",
       "nav": 99873
+    },
+    {
+      "date": "2026-06-12",
+      "action": "BUY",
+      "code": "sz002515",
+      "shares": 100,
+      "price": 7.53,
+      "value": 753.56475,
+      "reason": "ML选股"
+    },
+    {
+      "date": "2026-06-12",
+      "action": "BUY",
+      "code": "sz002481",
+      "shares": 200,
+      "price": 4.08,
+      "value": 816.6120000000001,
+      "reason": "ML选股"
+    },
+    {
+      "date": "2026-06-12",
+      "action": "BUY",
+      "code": "sz300525",
+      "shares": 100,
+      "price": 9.18,
+      "value": 918.6885,
+      "reason": "ML选股"
+    },
+    {
+      "date": "2026-06-12",
+      "action": "BUY",
+      "code": "sz300066",
+      "shares": 200,
+      "price": 5.74,
+      "value": 1148.861,
+      "reason": "ML选股"
+    },
+    {
+      "date": "2026-06-12",
+      "action": "BUY",
+      "code": "sz300182",
+      "shares": 200,
+      "price": 5.51,
+      "value": 1102.8265,
+      "reason": "ML选股"
+    },
+    {
+      "date": "2026-06-12",
+      "action": "BUY",
+      "code": "sz300070",
+      "shares": 300,
+      "price": 3.54,
+      "value": 1062.7965000000002,
+      "reason": "ML选股"
+    },
+    {
+      "date": "2026-06-12",
+      "action": "BUY",
+      "code": "sz000166",
+      "shares": 200,
+      "price": 4.53,
+      "value": 906.6795000000001,
+      "reason": "ML选股"
+    },
+    {
+      "date": "2026-06-12",
+      "action": "BUY",
+      "code": "sz000597",
+      "shares": 200,
+      "price": 4.58,
+      "value": 916.6870000000001,
+      "reason": "ML选股"
+    },
+    {
+      "date": "2026-06-12",
+      "action": "BUY",
+      "code": "sz300376",
+      "shares": 100,
+      "price": 6.18,
+      "value": 618.4635000000001,
+      "reason": "ML选股"
+    },
+    {
+      "date": "2026-06-12",
+      "action": "BUY",
+      "code": "sz300292",
+      "shares": 200,
+      "price": 5.49,
+      "value": 1098.8235000000002,
+      "reason": "ML选股"
+    },
+    {
+      "date": "2026-06-12",
+      "action": "BUY",
+      "code": "sh600398",
+      "shares": 100,
+      "price": 5.96,
+      "value": 596.447,
+      "reason": "ML选股"
+    },
+    {
+      "date": "2026-06-12",
+      "action": "BUY",
+      "code": "sz002839",
+      "shares": 200,
+      "price": 4.3,
+      "value": 860.6450000000001,
+      "reason": "ML选股"
+    },
+    {
+      "date": "2026-06-12",
+      "action": "BUY",
+      "code": "sz002004",
+      "shares": 200,
+      "price": 4.62,
+      "value": 924.6930000000001,
+      "reason": "ML选股"
+    },
+    {
+      "date": "2026-06-12",
+      "action": "BUY",
+      "code": "sz300146",
+      "shares": 100,
+      "price": 9.89,
+      "value": 989.7417500000001,
+      "reason": "ML选股"
+    },
+    {
+      "date": "2026-06-12",
+      "action": "BUY",
+      "code": "sh601636",
+      "shares": 100,
+      "price": 6.51,
+      "value": 651.48825,
+      "reason": "ML选股"
+    },
+    {
+      "date": "2026-06-12",
+      "action": "BUY",
+      "code": "sh600166",
+      "shares": 300,
+      "price": 3.1,
+      "value": 930.6975,
+      "reason": "ML选股"
+    },
+    {
+      "date": "2026-06-12",
+      "action": "BUY",
+      "code": "sh601997",
+      "shares": 100,
+      "price": 5.81,
+      "value": 581.43575,
+      "reason": "ML选股"
     }
   ]
 }
