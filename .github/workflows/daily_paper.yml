@@ -1,0 +1,37 @@
+name: Daily Paper Trading
+
+on:
+  schedule:
+    # 北京时间 15:30 (UTC 7:30) 每个交易日
+    - cron: '30 7 * * 1-5'
+  workflow_dispatch:  # 手动触发
+
+jobs:
+  paper-trade:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          pip install akshare pandas numpy --quiet
+          pip install requests --quiet
+
+      - name: Run paper trading (slow crawl)
+        run: python daily_cloud.py
+
+      - name: Commit & Push
+        run: |
+          git config user.name "QuantLab Bot"
+          git config user.email "bot@quantlab.io"
+          git add paper_daily_signal.json
+          git diff --staged --quiet || git commit -m "纸交 $(date +%Y-%m-%d)"
+          git push
