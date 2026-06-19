@@ -212,3 +212,86 @@ with open(OUTPUT, 'w', encoding='utf-8') as f:
 
 print(f'\n✓ 信号已保存: {OUTPUT}')
 print(f'  个股: {len(stock_picks)}只 | ETF: {len(etf_picks)}个')
+
+# ============================================================
+# 5. ETF执行: 更新portfolio
+# ============================================================
+print('\n[5/5] ETF仓位执行...')
+PORTFOLIO_FILE = 'paper_portfolio.json'
+
+# ETF产品定义
+BULL_ETFS = {
+    '159997': {'name': '电子ETF', 'alloc': 0.20},
+    '515880': {'name': '通信ETF', 'alloc': 0.20},
+    '512720': {'name': '计算机ETF', 'alloc': 0.20},
+    '512670': {'name': '国防ETF', 'alloc': 0.20},
+    '159886': {'name': '机械ETF', 'alloc': 0.20},
+}
+BEAR_ETFS = {
+    '511010': {'name': '国债ETF', 'alloc': 0.40},
+    '518880': {'name': '黄金ETF', 'alloc': 0.30},
+    '513100': {'name': '纳指ETF', 'alloc': 0.30},
+}
+
+target_etfs = BULL_ETFS if is_bull else BEAR_ETFS
+
+# 读现有portfolio
+try:
+    with open(PORTFOLIO_FILE, 'r', encoding='utf-8') as f:
+        pf = json.load(f)
+except:
+    pf = {'cash': 100000.0, 'positions': {}, 'history': [], 'initial_capital': 100000, 'start_date': LTD}
+
+# 计算当前ETF市值
+current_etf_val = 0
+old_etf_codes = [k for k in pf['positions'] if not (k.startswith('sz') or k.startswith('sh'))]
+for code in old_etf_codes:
+    pos = pf['positions'][code]
+    current_etf_val += pos['shares'] * pos['buy_price']
+
+# 释放旧ETF现金
+for code in old_etf_codes:
+    del pf['positions'][code]
+pf['cash'] += current_etf_val
+
+# 计算ETF总预算: 初始资金的35% 或 当前总资产的35%
+total_assets = pf['cash'] + sum(v['shares']*v['buy_price'] for v in pf['positions'].values())
+etf_budget = total_assets * 0.35  # ETF占35%
+
+# 获取ETF净值
+etf_navs = {}
+for code in target_etfs:
+    try:
+        time.sleep(1.5)
+        f = ak.fund_etf_fund_info_em(fund=code, start_date=(TODAY-timedelta(days=5)).strftime('%Y%m%d'),
+                                       end_date=TODAY.strftime('%Y%m%d'))
+        if f is not None and len(f) > 0:
+            etf_navs[code] = float(f.iloc[-1]['单位净值'])
+            print(f'  {code} {target_etfs[code][\"name\"]}: NAV={etf_navs[code]:.4f}')
+    except Exception as e:
+        print(f'  {code}: 获取失败 {str(e)[:40]}')
+
+# 建仓
+if etf_navs:
+    for code, info in target_etfs.items():
+        if code in etf_navs:
+            nav = etf_navs[code]
+            alloc = etf_budget * info['alloc']
+            shares = int(alloc / nav / 100) * 100
+            cost = shares * nav
+            if shares > 0 and cost <= pf['cash']:
+                pf['positions'][code] = {'shares': shares, 'buy_price': round(nav, 4), 'buy_date': LTD}
+                pf['cash'] -= cost
+                pf['history'].append({
+                    'date': LTD, 'action': 'BUY', 'code': code,
+                    'shares': shares, 'price': round(nav, 4), 'value': round(cost, 2),
+                    'reason': f'ETF轮动{\"BULL\" if is_bull else \"BEAR\"}→{info[\"name\"]}'
+                })
+                print(f'  买入: {code} {info[\"name\"]} {shares}份 @ {nav:.4f} = {cost:.2f}')
+
+pf['cash'] = round(pf['cash'], 2)
+with open(PORTFOLIO_FILE, 'w', encoding='utf-8') as f:
+    json.dump(pf, f, ensure_ascii=False, indent=2)
+
+new_etf_val = sum(v['shares']*v['buy_price'] for k,v in pf['positions'].items() if not (k.startswith('sz') or k.startswith('sh')))
+print(f'  ETF市值: {new_etf_val:.0f} | 现金: {pf[\"cash\"]:.0f}')
