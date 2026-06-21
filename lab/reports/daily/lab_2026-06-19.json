@@ -1,0 +1,509 @@
+{
+  "title": "QuantLab 日报",
+  "generated": "2026-06-19 12:03",
+  "meta": {
+    "cross_validation": {
+      "signals": [
+        {
+          "type": "无交叉信号",
+          "confidence": "low",
+          "note": "三Agent未形成有效交叉验证，各自信号独立"
+        }
+      ],
+      "alerts": [
+        "🟡 [北向] 高置信度分歧: 外资撤退/散户追高: 外资获利了结，散户接盘→危险信号"
+      ],
+      "n_cross_signals": 1
+    },
+    "total_elapsed_seconds": 10.5
+  },
+  "alerts": [
+    "[北向] 20日累计净流出-280亿→外资持续撤离",
+    "[北向] 外资撤退/散户追高: 外资获利了结，散户接盘→危险信号",
+    "[SOX] 5日涨7.3%→根据传导关系(lag=-1), 预计A股AI将在-1天后反应",
+    "[IC稳定性] 10个因子稳定性<0.3: boll_pos, boll_width, div_ma120, div_ma20, div_ma60",
+    "🟡 [北向] 高置信度分歧: 外资撤退/散户追高: 外资获利了结，散户接盘→危险信号"
+  ],
+  "sections": {
+    "NorthboundDecomp": {
+      "status": "ok",
+      "summary": "北向5日流出50亿 | 20日-280亿 | 方向:strong_outflow | 北向vsHS300:共振下跌: 北向+大盘同向 | 数据截止:2024-08-16",
+      "market_flow": {
+        "status": "ok",
+        "n_days": 2003,
+        "net_5d": -50.36,
+        "net_20d": -279.94,
+        "net_60d": -1027.69,
+        "buy_sell_ratio_20d": 0.973,
+        "direction": "strong_outflow",
+        "monthly_summary": {
+          "2024-05": -129.67,
+          "2024-06": -444.45,
+          "2024-07": -166.3,
+          "2024-08": -287.27
+        },
+        "latest_date": "2024-08-16"
+      },
+      "sector_preference": {
+        "favored": [
+          {
+            "industry": "非银金融",
+            "correlation": 0.455,
+            "n_days": 1990,
+            "bias": "favored"
+          },
+          {
+            "industry": "食品饮料",
+            "correlation": 0.426,
+            "n_days": 1990,
+            "bias": "favored"
+          },
+          {
+            "industry": "银行",
+            "correlation": 0.388,
+            "n_days": 1990,
+            "bias": "favored"
+          },
+          {
+            "industry": "汽车",
+            "correlation": 0.349,
+            "n_days": 1990,
+            "bias": "favored"
+          },
+          {
+            "industry": "医药生物",
+            "correlation": 0.34,
+            "n_days": 1990,
+            "bias": "favored"
+          },
+          {
+            "industry": "电力设备",
+            "correlation": 0.339,
+            "n_days": 1990,
+            "bias": "favored"
+          },
+          {
+            "industry": "基础化工",
+            "correlation": 0.338,
+            "n_days": 1990,
+            "bias": "favored"
+          },
+          {
+            "industry": "电子",
+            "correlation": 0.336,
+            "n_days": 1990,
+            "bias": "favored"
+          }
+        ],
+        "avoided": [],
+        "n_industries": 12
+      },
+      "divergence": {
+        "status": "ok",
+        "divergence_signals": [
+          {
+            "type": "外资vs散户",
+            "signal": "外资撤退/散户追高",
+            "northbound": "流出",
+            "margin": "加杠杆",
+            "interpretation": "外资获利了结，散户接盘→危险信号",
+            "confidence": "high"
+          }
+        ],
+        "consensus": "分歧→方向不明",
+        "summary": {
+          "northbound_5d": -50.36,
+          "margin_5d": 1418232079795.0,
+          "main_force_5d": 0.0
+        },
+        "n_divergences": 1
+      },
+      "persistence": {
+        "consecutive_inflow_days": 0,
+        "consecutive_outflow_days": 1,
+        "daily_volatility": 45.24,
+        "mean_daily_flow": 8.36,
+        "trend_strength": 0.185,
+        "direction_consistency": 0.61
+      },
+      "nb_hs300_divergence": {
+        "correlation_60d": 0.974,
+        "nb_20d_direction": "outflow",
+        "hs300_20d_return": -3.46,
+        "divergence_type": "共振下跌: 北向+大盘同向"
+      },
+      "raw_summary": {
+        "nb_total_5d": -50.36,
+        "nb_total_20d": -279.94,
+        "nb_total_60d": -1027.69,
+        "latest_nb": -67.75,
+        "latest_date": "2024-08-16"
+      },
+      "data_status": {
+        "northbound": "2003行",
+        "margin": "2538行",
+        "capital_flow": "0行",
+        "industry_returns": "30228行"
+      },
+      "alerts": [
+        "[北向] 20日累计净流出-280亿→外资持续撤离",
+        "[北向] 外资撤退/散户追高: 外资获利了结，散户接盘→危险信号"
+      ],
+      "agent_name": "NorthboundDecomp",
+      "elapsed_seconds": 0.1
+    },
+    "SoxConduction": {
+      "status": "ok",
+      "summary": "传导: REFERENCE | Granger: 显著(lag=1) | CCF: lag=-1, r=0.197 | 传导状态: normal | SOX 5d: +7.3%",
+      "signal": {
+        "action": "REFERENCE",
+        "action_desc": "SOX对A股AI有一定传导，可作为辅助参考",
+        "weight": 1,
+        "signals": [
+          "SOX→A股AI Granger因果显著 (lag=1, p=0.0)"
+        ]
+      },
+      "ccf": {
+        "best_lag": -1,
+        "best_correlation": 0.1974,
+        "interpretation": "A股AI领先SOX 1天, 相关性0.197"
+      },
+      "granger_summary": {
+        "is_significant": "True",
+        "best_lag": "1",
+        "best_p_value": 0.0
+      },
+      "conduction_state": {
+        "current_correlation": 0.2463,
+        "z_score": 0.36,
+        "conduction_state": "normal",
+        "anomaly": "False",
+        "anomaly_type": "none"
+      },
+      "event_analysis": {
+        "status": "no_matching_events"
+      },
+      "recent_performance": {
+        "sox_5d": 7.26,
+        "ai_5d": -0.21,
+        "sox_latest": 14341.78,
+        "latest_date": "2026-06-18 00:00:00"
+      },
+      "alerts": [
+        "[SOX] 5日涨7.3%→根据传导关系(lag=-1), 预计A股AI将在-1天后反应"
+      ],
+      "data_status": {
+        "sox": "1374行, 2021-01-04 00:00:00 ~ 2026-06-18 00:00:00",
+        "ai_composite": "1307行, 2021-01-04 00:00:00 ~ 2026-06-12 00:00:00",
+        "ai_industries": [
+          "电子",
+          "计算机",
+          "通信"
+        ]
+      },
+      "agent_name": "SoxConduction",
+      "elapsed_seconds": 0.2
+    },
+    "FactorFlip": {
+      "status": "ok",
+      "summary": "信号: NORMAL | 跟踪21因子 | IC正向15/负向1/16 | 翻牌20次 | 集体翻牌4次",
+      "signal": {
+        "action": "NORMAL",
+        "confidence": "medium",
+        "reason": "因子集体向多翻牌: 可能是新主线形成",
+        "suggested_action": "维持仓位，观察新因子结构持续性"
+      },
+      "ic_direction": {
+        "positive": 15,
+        "negative": 1,
+        "total": 16,
+        "top_positive": [
+          [
+            "div_ma20",
+            0.1913
+          ],
+          [
+            "rsi14",
+            0.1566
+          ],
+          [
+            "div_ma60",
+            0.13
+          ],
+          [
+            "ma_score",
+            0.1269
+          ],
+          [
+            "log_eps",
+            0.1166
+          ]
+        ],
+        "top_negative": [
+          [
+            "pe",
+            -0.0652
+          ],
+          [
+            "rsi6",
+            0.0179
+          ],
+          [
+            "gross_margin",
+            0.0192
+          ],
+          [
+            "rsi_extreme",
+            0.0256
+          ],
+          [
+            "streak5_dn",
+            0.0415
+          ]
+        ]
+      },
+      "stability": {
+        "worst_10": [
+          {
+            "factor": "boll_pos",
+            "mean_ic": 0.0144,
+            "std_ic": 0.0712,
+            "positive_ratio": 0.67,
+            "direction_consistency": 0.33,
+            "stability_score": 0.0
+          },
+          {
+            "factor": "boll_width",
+            "mean_ic": 0.0028,
+            "std_ic": 0.1394,
+            "positive_ratio": 0.5,
+            "direction_consistency": 0.0,
+            "stability_score": 0.0
+          },
+          {
+            "factor": "div_ma120",
+            "mean_ic": 0.0335,
+            "std_ic": 0.0764,
+            "positive_ratio": 0.67,
+            "direction_consistency": 0.33,
+            "stability_score": 0.0
+          },
+          {
+            "factor": "div_ma20",
+            "mean_ic": 0.003,
+            "std_ic": 0.1168,
+            "positive_ratio": 0.5,
+            "direction_consistency": 0.0,
+            "stability_score": 0.0
+          },
+          {
+            "factor": "div_ma60",
+            "mean_ic": -0.0125,
+            "std_ic": 0.1133,
+            "positive_ratio": 0.33,
+            "direction_consistency": 0.33,
+            "stability_score": 0.0
+          },
+          {
+            "factor": "gross_margin",
+            "mean_ic": -0.0061,
+            "std_ic": 0.0655,
+            "positive_ratio": 0.67,
+            "direction_consistency": 0.33,
+            "stability_score": 0.0
+          },
+          {
+            "factor": "log_eps",
+            "mean_ic": 0.0956,
+            "std_ic": 0.1289,
+            "positive_ratio": 0.83,
+            "direction_consistency": 0.67,
+            "stability_score": 0.0
+          },
+          {
+            "factor": "ma_score",
+            "mean_ic": 0.0348,
+            "std_ic": 0.0612,
+            "positive_ratio": 0.67,
+            "direction_consistency": 0.33,
+            "stability_score": 0.0
+          },
+          {
+            "factor": "margin_panic",
+            "mean_ic": -0.0058,
+            "std_ic": 0.0689,
+            "positive_ratio": 0.33,
+            "direction_consistency": 0.33,
+            "stability_score": 0.0
+          },
+          {
+            "factor": "net_margin",
+            "mean_ic": 0.082,
+            "std_ic": 0.0948,
+            "positive_ratio": 0.83,
+            "direction_consistency": 0.67,
+            "stability_score": 0.0
+          }
+        ],
+        "best_5": [
+          {
+            "factor": "pe",
+            "mean_ic": -0.0931,
+            "std_ic": 0.0642,
+            "positive_ratio": 0.0,
+            "direction_consistency": 1.0,
+            "stability_score": 0.31
+          },
+          {
+            "factor": "boll_pos",
+            "mean_ic": 0.0144,
+            "std_ic": 0.0712,
+            "positive_ratio": 0.67,
+            "direction_consistency": 0.33,
+            "stability_score": 0.0
+          },
+          {
+            "factor": "boll_width",
+            "mean_ic": 0.0028,
+            "std_ic": 0.1394,
+            "positive_ratio": 0.5,
+            "direction_consistency": 0.0,
+            "stability_score": 0.0
+          },
+          {
+            "factor": "div_ma120",
+            "mean_ic": 0.0335,
+            "std_ic": 0.0764,
+            "positive_ratio": 0.67,
+            "direction_consistency": 0.33,
+            "stability_score": 0.0
+          },
+          {
+            "factor": "div_ma20",
+            "mean_ic": 0.003,
+            "std_ic": 0.1168,
+            "positive_ratio": 0.5,
+            "direction_consistency": 0.0,
+            "stability_score": 0.0
+          }
+        ]
+      },
+      "collective_flip_detail": [],
+      "recent_flips_sample": [
+        {
+          "factor": "rsi6",
+          "period": "2018-04",
+          "prev_period": "2018-03",
+          "prev_ic": 0.0974,
+          "cur_ic": 0.0154,
+          "direction": "positive_decaying",
+          "severity": "warning",
+          "delta_ic": -0.082
+        },
+        {
+          "factor": "rsi6",
+          "period": "2019-03",
+          "prev_period": "2019-02",
+          "prev_ic": 0.0105,
+          "cur_ic": 0.0017,
+          "direction": "positive_decaying",
+          "severity": "warning",
+          "delta_ic": -0.0088
+        },
+        {
+          "factor": "rsi6",
+          "period": "2023-08",
+          "prev_period": "2023-07",
+          "prev_ic": 0.1519,
+          "cur_ic": 0.0337,
+          "direction": "positive_decaying",
+          "severity": "warning",
+          "delta_ic": -0.1182
+        },
+        {
+          "factor": "rsi6",
+          "period": "2024-06",
+          "prev_period": "2024-05",
+          "prev_ic": 0.1667,
+          "cur_ic": 0.0028,
+          "direction": "positive_decaying",
+          "severity": "warning",
+          "delta_ic": -0.164
+        },
+        {
+          "factor": "rsi6",
+          "period": "2024-09",
+          "prev_period": "2024-08",
+          "prev_ic": 0.1011,
+          "cur_ic": 0.0314,
+          "direction": "positive_decaying",
+          "severity": "warning",
+          "delta_ic": -0.0697
+        },
+        {
+          "factor": "rsi6",
+          "period": "2025-08",
+          "prev_period": "2025-07",
+          "prev_ic": 0.0604,
+          "cur_ic": 0.0281,
+          "direction": "positive_decaying",
+          "severity": "warning",
+          "delta_ic": -0.0323
+        },
+        {
+          "factor": "rsi_extreme",
+          "period": "2017-11",
+          "prev_period": "2017-10",
+          "prev_ic": 0.1141,
+          "cur_ic": 0.0011,
+          "direction": "positive_decaying",
+          "severity": "warning",
+          "delta_ic": -0.113
+        },
+        {
+          "factor": "rsi_extreme",
+          "period": "2025-08",
+          "prev_period": "2025-07",
+          "prev_ic": 0.0628,
+          "cur_ic": 0.0209,
+          "direction": "positive_decaying",
+          "severity": "warning",
+          "delta_ic": -0.0419
+        },
+        {
+          "factor": "streak5_dn",
+          "period": "2020-04",
+          "prev_period": "2020-03",
+          "prev_ic": 0.0359,
+          "cur_ic": 0.0038,
+          "direction": "positive_decaying",
+          "severity": "warning",
+          "delta_ic": -0.0321
+        },
+        {
+          "factor": "streak5_dn",
+          "period": "2020-09",
+          "prev_period": "2020-08",
+          "prev_ic": 0.0336,
+          "cur_ic": 0.0014,
+          "direction": "positive_decaying",
+          "severity": "warning",
+          "delta_ic": -0.0323
+        }
+      ],
+      "data_status": {
+        "factor_cache": "ok",
+        "n_factors": 21,
+        "n_rows": 525989,
+        "date_range": "2016-06-30 ~ 2026-04-30",
+        "n_stocks": 5727,
+        "frequency": "monthly"
+      },
+      "alerts": [
+        "[IC稳定性] 10个因子稳定性<0.3: boll_pos, boll_width, div_ma120, div_ma20, div_ma60"
+      ],
+      "agent_name": "FactorFlip",
+      "elapsed_seconds": 10.5
+    }
+  }
+}

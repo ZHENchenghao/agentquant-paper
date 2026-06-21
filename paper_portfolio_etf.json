@@ -1,0 +1,48 @@
+{
+  "strategy": "ETF_dual_v3",
+  "date": "2026-06-18",
+  "capital": 100000,
+  "mode": "BULL-动量",
+  "gate": "FULL",
+  "hs300": 4941.599,
+  "ma200": 4652.9911950000005,
+  "invested": 99390.79,
+  "cash": 609.21,
+  "positions": [
+    {
+      "code": "515050.SH",
+      "name": "5GETF",
+      "shares": 14400,
+      "price": 1.383,
+      "cost": 19935.1152
+    },
+    {
+      "code": "512480.SH",
+      "name": "半导体ETF",
+      "shares": 8000,
+      "price": 2.481,
+      "cost": 19867.847999999998
+    },
+    {
+      "code": "159781.SZ",
+      "name": "科创创业ETF",
+      "shares": 14400,
+      "price": 1.384,
+      "cost": 19949.529599999998
+    },
+    {
+      "code": "159995.SZ",
+      "name": "芯片ETF",
+      "shares": 7000,
+      "price": 2.816,
+      "cost": 19731.712
+    },
+    {
+      "code": "512760.SH",
+      "name": "芯片ETF",
+      "shares": 15100,
+      "price": 1.317,
+      "cost": 19906.5867
+    }
+  ]
+}

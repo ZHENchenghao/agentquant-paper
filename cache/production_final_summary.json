@@ -1,0 +1,1 @@
+{"ann_ret": 51.5, "sharpe": 1.183, "mdd": -43.7, "late5y_ann": 44.2, "late5y_sh": 1.73, "cost_model": "stamp0.05+comm0.02+slip0.15=turnover0.75*2*0.22%=0.33%/mo", "fixes": "neutralization_in_split|trade_cost|price_limit_filter|random_baseline_full|dynamic_nlp_threshold", "generated": "2026-06-20 03:28"}

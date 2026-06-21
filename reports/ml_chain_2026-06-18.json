@@ -1,0 +1,46 @@
+{
+  "date": "2026-06-18",
+  "config": {
+    "forward_days": 20,
+    "top_n": 30,
+    "min_train_years": 3,
+    "rebalance_months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "costs": {
+      "stamp_tax": 0.001,
+      "commission": 0.0003,
+      "slippage": 0.001
+    }
+  },
+  "performance": {
+    "total_return": 14047.11,
+    "annual_return": 71.07,
+    "annual_vol": 14.48,
+    "sharpe": 4.907,
+    "excess_sharpe": 0.754,
+    "mdd": -7.07,
+    "calmar": 10.059,
+    "win_rate": 66.3,
+    "benchmark_return": 271.01,
+    "excess_return": 13776.1
+  },
+  "trading": {
+    "rebalance_count": 88,
+    "trade_count": 2128,
+    "buy_count": 1085,
+    "sell_count": 1043
+  },
+  "elapsed_minutes": 5.3
+}

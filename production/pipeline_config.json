@@ -1,0 +1,40 @@
+{
+  "pipeline": "vFinal+",
+  "factors": [
+    "pe_neu",
+    "pb_neu",
+    "ps_neu",
+    "log_mcap_neu",
+    "roe_neu",
+    "gross_margin_neu",
+    "net_margin_neu",
+    "profit_margin_neu",
+    "log_eps_neu",
+    "margin_panic_neu",
+    "streak5_dn_neu",
+    "nb_bull_neu",
+    "nb_diverge_neu",
+    "vix_stress_neu",
+    "rsi6_neu",
+    "rsi14_neu",
+    "rsi_extreme_neu",
+    "boll_pos_neu",
+    "boll_width_neu",
+    "div_ma20_neu",
+    "div_ma60_neu",
+    "div_ma120_neu",
+    "vol_ratio_neu",
+    "ma_score_neu",
+    "sent_20d_neu"
+  ],
+  "n_factors": 25,
+  "neutralization": "quadratic_ols_industry",
+  "model": "LightGBM_depth10_leaves63",
+  "cutoffs": {
+    "micro_cap_pct": 0.2,
+    "chinext_max_pct": 0.4
+  },
+  "built": "2026-06-18 21:59",
+  "nlp_source": "Astock_25493_labeled_articles",
+  "nlp_factor": "sent_20d"
+}

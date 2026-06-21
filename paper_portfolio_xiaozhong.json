@@ -1,630 +1,320 @@
 {
-  "strategy": "小众战法_Top30",
-  "version": "v1.0",
-  "initial_capital": 100000,
-  "start_date": "2026-06-18",
-  "gate_position": 1.0,
-  "pairs": [
-    "amihxturn",
-    "amihxmax_",
-    "amihxsr5",
-    "turnxsr5"
-  ],
-  "cash": 1914.18,
-  "positions": {
-    "600233.SH": {
-      "name": "圆通速递",
-      "shares": 200,
-      "buy_price": 15.8,
-      "buy_price_with_slippage": 15.82,
-      "cost_with_fee": 3168.19,
-      "buy_date": "2026-06-18",
-      "score": 2.284,
-      "sector": "主板"
-    },
-    "600600.SH": {
-      "name": "青岛啤酒",
-      "shares": 100,
-      "buy_price": 53.9,
-      "buy_price_with_slippage": 53.95,
-      "cost_with_fee": 5400.44,
-      "buy_date": "2026-06-18",
-      "score": 2.1345,
-      "sector": "主板"
-    },
-    "002311.SZ": {
-      "name": "海大集团",
-      "shares": 100,
-      "buy_price": 41.2,
-      "buy_price_with_slippage": 41.24,
-      "cost_with_fee": 4129.16,
-      "buy_date": "2026-06-18",
-      "score": 2.0647,
-      "sector": "主板"
-    },
-    "600066.SH": {
-      "name": "宇通客车",
-      "shares": 100,
-      "buy_price": 26.04,
-      "buy_price_with_slippage": 26.07,
-      "cost_with_fee": 2611.63,
-      "buy_date": "2026-06-18",
-      "score": 2.0477,
-      "sector": "主板"
-    },
-    "001979.SZ": {
-      "name": "招商蛇口",
-      "shares": 400,
-      "buy_price": 7.25,
-      "buy_price_with_slippage": 7.26,
-      "cost_with_fee": 2907.93,
-      "buy_date": "2026-06-18",
-      "score": 2.0234,
-      "sector": "主板"
-    },
-    "600023.SH": {
-      "name": "浙能电力",
-      "shares": 500,
-      "buy_price": 5.76,
-      "buy_price_with_slippage": 5.77,
-      "cost_with_fee": 2887.91,
-      "buy_date": "2026-06-18",
-      "score": 1.9309,
-      "sector": "主板"
-    },
-    "601058.SH": {
-      "name": "赛轮轮胎",
-      "shares": 200,
-      "buy_price": 11.5,
-      "buy_price_with_slippage": 11.51,
-      "cost_with_fee": 2307.32,
-      "buy_date": "2026-06-18",
-      "score": 1.9235,
-      "sector": "主板"
-    },
-    "688303.SH": {
-      "name": "大全能源",
-      "shares": 100,
-      "buy_price": 19.2,
-      "buy_price_with_slippage": 19.22,
-      "cost_with_fee": 1926.94,
-      "buy_date": "2026-06-18",
-      "score": 1.8483,
-      "sector": "科创板"
-    },
-    "600438.SH": {
-      "name": "通威股份",
-      "shares": 200,
-      "buy_price": 12.85,
-      "buy_price_with_slippage": 12.86,
-      "cost_with_fee": 2577.6,
-      "buy_date": "2026-06-18",
-      "score": 1.7911,
-      "sector": "主板"
-    },
-    "003816.SZ": {
-      "name": "中国广核",
-      "shares": 800,
-      "buy_price": 4.08,
-      "buy_price_with_slippage": 4.08,
-      "cost_with_fee": 3272.3,
-      "buy_date": "2026-06-18",
-      "score": 1.7445,
-      "sector": "主板"
-    },
-    "601898.SH": {
-      "name": "中煤能源",
-      "shares": 200,
-      "buy_price": 13.5,
-      "buy_price_with_slippage": 13.51,
-      "cost_with_fee": 2707.73,
-      "buy_date": "2026-06-18",
-      "score": 1.7422,
-      "sector": "主板"
-    },
-    "601800.SH": {
-      "name": "中国交建",
-      "shares": 500,
-      "buy_price": 6.11,
-      "buy_price_with_slippage": 6.12,
-      "cost_with_fee": 3063.09,
-      "buy_date": "2026-06-18",
-      "score": 1.7106,
-      "sector": "主板"
-    },
-    "600015.SH": {
-      "name": "华夏银行",
-      "shares": 500,
-      "buy_price": 6.63,
-      "buy_price_with_slippage": 6.64,
-      "cost_with_fee": 3323.35,
-      "buy_date": "2026-06-18",
-      "score": 1.6958,
-      "sector": "主板"
-    },
-    "000983.SZ": {
-      "name": "山西焦煤",
-      "shares": 500,
-      "buy_price": 6.37,
-      "buy_price_with_slippage": 6.38,
-      "cost_with_fee": 3193.22,
-      "buy_date": "2026-06-18",
-      "score": 1.6914,
-      "sector": "主板"
-    },
-    "603288.SH": {
-      "name": "海天味业",
-      "shares": 100,
-      "buy_price": 32.44,
-      "buy_price_with_slippage": 32.47,
-      "cost_with_fee": 3252.28,
-      "buy_date": "2026-06-18",
-      "score": 1.6814,
-      "sector": "主板"
-    },
-    "002422.SZ": {
-      "name": "科伦药业",
-      "shares": 100,
-      "buy_price": 35.92,
-      "buy_price_with_slippage": 35.96,
-      "cost_with_fee": 3600.63,
-      "buy_date": "2026-06-18",
-      "score": 1.6743,
-      "sector": "主板"
-    },
-    "601009.SH": {
-      "name": "南京银行",
-      "shares": 300,
-      "buy_price": 10.85,
-      "buy_price_with_slippage": 10.86,
-      "cost_with_fee": 3263.29,
-      "buy_date": "2026-06-18",
-      "score": 1.6527,
-      "sector": "主板"
-    },
-    "002352.SZ": {
-      "name": "顺丰控股",
-      "shares": 100,
-      "buy_price": 31.55,
-      "buy_price_with_slippage": 31.58,
-      "cost_with_fee": 3163.19,
-      "buy_date": "2026-06-18",
-      "score": 1.6503,
-      "sector": "主板"
-    },
-    "600415.SH": {
-      "name": "小商品城",
-      "shares": 300,
-      "buy_price": 10.54,
-      "buy_price_with_slippage": 10.55,
-      "cost_with_fee": 3170.19,
-      "buy_date": "2026-06-18",
-      "score": 1.6475,
-      "sector": "主板"
-    },
-    "600674.SH": {
-      "name": "川投能源",
-      "shares": 200,
-      "buy_price": 14.31,
-      "buy_price_with_slippage": 14.32,
-      "cost_with_fee": 2869.89,
-      "buy_date": "2026-06-18",
-      "score": 1.6459,
-      "sector": "主板"
-    },
-    "601456.SH": {
-      "name": "国联民生",
-      "shares": 300,
-      "buy_price": 9.17,
-      "buy_price_with_slippage": 9.18,
-      "cost_with_fee": 2758.78,
-      "buy_date": "2026-06-18",
-      "score": 1.603,
-      "sector": "主板"
-    },
-    "688271.SH": {
-      "name": "联影医疗",
-      "shares": 100,
-      "buy_price": 103.48,
-      "buy_price_with_slippage": 103.58,
-      "cost_with_fee": 10363.45,
-      "buy_date": "2026-06-18",
-      "score": 1.5955,
-      "sector": "科创板"
-    },
-    "300498.SZ": {
-      "name": "温氏股份",
-      "shares": 200,
-      "buy_price": 12.36,
-      "buy_price_with_slippage": 12.37,
-      "cost_with_fee": 2479.5,
-      "buy_date": "2026-06-18",
-      "score": 1.5907,
-      "sector": "创业板"
-    },
-    "600926.SH": {
-      "name": "杭州银行",
-      "shares": 200,
-      "buy_price": 15.64,
-      "buy_price_with_slippage": 15.66,
-      "cost_with_fee": 3136.16,
-      "buy_date": "2026-06-18",
-      "score": 1.5879,
-      "sector": "主板"
-    },
-    "600048.SH": {
-      "name": "保利发展",
-      "shares": 600,
-      "buy_price": 4.92,
-      "buy_price_with_slippage": 4.92,
-      "cost_with_fee": 2959.98,
-      "buy_date": "2026-06-18",
-      "score": 1.5807,
-      "sector": "主板"
-    },
-    "600886.SH": {
-      "name": "国投电力",
-      "shares": 200,
-      "buy_price": 13.07,
-      "buy_price_with_slippage": 13.08,
-      "cost_with_fee": 2621.64,
-      "buy_date": "2026-06-18",
-      "score": 1.5743,
-      "sector": "主板"
-    },
-    "600585.SH": {
-      "name": "海螺水泥",
-      "shares": 100,
-      "buy_price": 17.76,
-      "buy_price_with_slippage": 17.78,
-      "cost_with_fee": 1782.79,
-      "buy_date": "2026-06-18",
-      "score": 1.5645,
-      "sector": "主板"
-    },
-    "000166.SZ": {
-      "name": "申万宏源",
-      "shares": 700,
-      "buy_price": 4.41,
-      "buy_price_with_slippage": 4.41,
-      "cost_with_fee": 3095.12,
-      "buy_date": "2026-06-18",
-      "score": 1.5628,
-      "sector": "主板"
-    },
-    "601998.SH": {
-      "name": "中信银行",
-      "shares": 400,
-      "buy_price": 7.27,
-      "buy_price_with_slippage": 7.28,
-      "cost_with_fee": 2915.94,
-      "buy_date": "2026-06-18",
-      "score": 1.5628,
-      "sector": "主板"
-    },
-    "600930.SH": {
-      "name": "华电新能",
-      "shares": 600,
-      "buy_price": 5.28,
-      "buy_price_with_slippage": 5.29,
-      "cost_with_fee": 3176.2,
-      "buy_date": "2026-06-18",
-      "score": 1.5484,
-      "sector": "主板"
-    }
+  "strategy": "小众战法_Top30_DD_SMART_v2",
+  "date": "2026-06-18",
+  "capital": 100000,
+  "gate": {
+    "position": 1.0,
+    "hs300": 4941.599,
+    "dd_2y": -1.1352364444049523
   },
-  "history": [
+  "pairs": [
+    "turn_x_ind_",
+    "pric_x_ind_",
+    "pric_x_turn",
+    "max__x_ind_"
+  ],
+  "cash": 8193.52,
+  "invested": 91806.48,
+  "positions": [
     {
-      "date": "2026-06-18",
-      "action": "BUY",
-      "code": "600233.SH",
-      "name": "圆通速递",
-      "shares": 200,
-      "price": 15.8,
-      "cost": 3168.19,
-      "score": 2.284
+      "code": "sz001227",
+      "name": "兰州银行",
+      "shares": 1500,
+      "price": 2.09,
+      "buy_price": 2.09209,
+      "cost": 3143.16638135,
+      "sector": "主板",
+      "score": 3.3944742455775234
     },
     {
-      "date": "2026-06-18",
-      "action": "BUY",
-      "code": "600600.SH",
-      "name": "青岛啤酒",
-      "shares": 100,
-      "price": 53.9,
-      "cost": 5400.44,
-      "score": 2.1345
-    },
-    {
-      "date": "2026-06-18",
-      "action": "BUY",
-      "code": "002311.SZ",
-      "name": "海大集团",
-      "shares": 100,
-      "price": 41.2,
-      "cost": 4129.16,
-      "score": 2.0647
-    },
-    {
-      "date": "2026-06-18",
-      "action": "BUY",
-      "code": "600066.SH",
-      "name": "宇通客车",
-      "shares": 100,
-      "price": 26.04,
-      "cost": 2611.63,
-      "score": 2.0477
-    },
-    {
-      "date": "2026-06-18",
-      "action": "BUY",
-      "code": "001979.SZ",
-      "name": "招商蛇口",
-      "shares": 400,
-      "price": 7.25,
-      "cost": 2907.93,
-      "score": 2.0234
-    },
-    {
-      "date": "2026-06-18",
-      "action": "BUY",
-      "code": "600023.SH",
-      "name": "浙能电力",
-      "shares": 500,
-      "price": 5.76,
-      "cost": 2887.91,
-      "score": 1.9309
-    },
-    {
-      "date": "2026-06-18",
-      "action": "BUY",
-      "code": "601058.SH",
-      "name": "赛轮轮胎",
-      "shares": 200,
-      "price": 11.5,
-      "cost": 2307.32,
-      "score": 1.9235
-    },
-    {
-      "date": "2026-06-18",
-      "action": "BUY",
-      "code": "688303.SH",
-      "name": "大全能源",
-      "shares": 100,
-      "price": 19.2,
-      "cost": 1926.94,
-      "score": 1.8483
-    },
-    {
-      "date": "2026-06-18",
-      "action": "BUY",
-      "code": "600438.SH",
-      "name": "通威股份",
-      "shares": 200,
-      "price": 12.85,
-      "cost": 2577.6,
-      "score": 1.7911
-    },
-    {
-      "date": "2026-06-18",
-      "action": "BUY",
-      "code": "003816.SZ",
-      "name": "中国广核",
+      "code": "sz002839",
+      "name": "张家港行",
       "shares": 800,
-      "price": 4.08,
-      "cost": 3272.3,
-      "score": 1.7445
+      "price": 4.12,
+      "buy_price": 4.12412,
+      "cost": 3304.3289929599996,
+      "sector": "主板",
+      "score": 3.375334027055151
     },
     {
-      "date": "2026-06-18",
-      "action": "BUY",
-      "code": "601898.SH",
-      "name": "中煤能源",
+      "code": "sz002958",
+      "name": "青农商行",
+      "shares": 1100,
+      "price": 2.82,
+      "buy_price": 2.8228199999999997,
+      "cost": 3110.1330510199996,
+      "sector": "主板",
+      "score": 3.339522424557752
+    },
+    {
+      "code": "sh601665",
+      "name": "齐鲁银行",
+      "shares": 500,
+      "price": 6.06,
+      "buy_price": 6.066059999999999,
+      "cost": 3038.0603303,
+      "sector": "主板",
+      "score": 3.2748739334027053
+    },
+    {
+      "code": "sz002807",
+      "name": "江阴银行",
+      "shares": 800,
+      "price": 3.92,
+      "buy_price": 3.9239199999999994,
+      "cost": 3144.1673913599993,
+      "sector": "主板",
+      "score": 3.250473048907388
+    },
+    {
+      "code": "sh600908",
+      "name": "无锡银行",
+      "shares": 600,
+      "price": 5.32,
+      "buy_price": 5.32532,
+      "cost": 3200.2239519199998,
+      "sector": "主板",
+      "score": 3.2123574401664934
+    },
+    {
+      "code": "sz002399",
+      "name": "海普瑞",
+      "shares": 300,
+      "price": 8.77,
+      "buy_price": 8.778769999999998,
+      "cost": 2638.657336309999,
+      "sector": "主板",
+      "score": 3.200137356919875
+    },
+    {
+      "code": "sh600928",
+      "name": "西安银行",
+      "shares": 900,
+      "price": 3.39,
+      "buy_price": 3.3933899999999997,
+      "cost": 3059.0815405099997,
+      "sector": "主板",
+      "score": 3.154650884495317
+    },
+    {
+      "code": "sh601128",
+      "name": "常熟银行",
+      "shares": 500,
+      "price": 6.24,
+      "buy_price": 6.246239999999999,
+      "cost": 3128.1512312,
+      "sector": "主板",
+      "score": 3.1261400104058277
+    },
+    {
+      "code": "sh601928",
+      "name": "凤凰传媒",
+      "shares": 300,
+      "price": 9.13,
+      "buy_price": 9.13913,
+      "cost": 2746.7664173900002,
+      "sector": "主板",
+      "score": 3.065770603537981
+    },
+    {
+      "code": "sz002948",
+      "name": "青岛银行",
+      "shares": 600,
+      "price": 5.53,
+      "buy_price": 5.53553,
+      "cost": 3326.35121318,
+      "sector": "主板",
+      "score": 3.037548907388137
+    },
+    {
+      "code": "sz000822",
+      "name": "山东海化",
+      "shares": 700,
+      "price": 4.35,
+      "buy_price": 4.354349999999999,
+      "cost": 3053.0754804499998,
+      "sector": "主板",
+      "score": 2.9599386056191466
+    },
+    {
+      "code": "sh600871",
+      "name": "石化油服",
+      "shares": 1500,
+      "price": 2.14,
+      "buy_price": 2.14214,
+      "cost": 3218.2421321,
+      "sector": "主板",
+      "score": 2.954248491155047
+    },
+    {
+      "code": "sz002966",
+      "name": "苏州银行",
+      "shares": 400,
+      "price": 7.73,
+      "buy_price": 7.73773,
+      "cost": 3100.12295092,
+      "sector": "主板",
+      "score": 2.9382259105098854
+    },
+    {
+      "code": "sh600901",
+      "name": "江苏金租",
+      "shares": 500,
+      "price": 6.05,
+      "buy_price": 6.056049999999999,
+      "cost": 3033.0552802499997,
+      "sector": "主板",
+      "score": 2.938111030176899
+    },
+    {
+      "code": "sh600968",
+      "name": "海油发展",
+      "shares": 800,
+      "price": 3.77,
+      "buy_price": 3.7737699999999994,
+      "cost": 3024.0461901599997,
+      "sector": "主板",
+      "score": 2.9207917793964624
+    },
+    {
+      "code": "sz002507",
+      "name": "涪陵榨菜",
       "shares": 200,
-      "price": 13.5,
-      "cost": 2707.73,
-      "score": 1.7422
+      "price": 11.41,
+      "buy_price": 11.421409999999998,
+      "cost": 2289.3048428199995,
+      "sector": "主板",
+      "score": 2.917188033298647
     },
     {
-      "date": "2026-06-18",
-      "action": "BUY",
-      "code": "601800.SH",
-      "name": "中国交建",
-      "shares": 500,
-      "price": 6.11,
-      "cost": 3063.09,
-      "score": 1.7106
+      "code": "sz300247",
+      "name": "融捷健康",
+      "shares": 800,
+      "price": 3.85,
+      "buy_price": 3.8538499999999996,
+      "cost": 3088.1108307999993,
+      "sector": "主板",
+      "score": 2.8848870967741935
     },
     {
-      "date": "2026-06-18",
-      "action": "BUY",
-      "code": "600015.SH",
-      "name": "华夏银行",
-      "shares": 500,
-      "price": 6.63,
-      "cost": 3323.35,
-      "score": 1.6958
+      "code": "sz000709",
+      "name": "河钢股份",
+      "shares": 1600,
+      "price": 2.06,
+      "buy_price": 2.06206,
+      "cost": 3304.3289929599996,
+      "sector": "主板",
+      "score": 2.8686832466181063
     },
     {
-      "date": "2026-06-18",
-      "action": "BUY",
-      "code": "000983.SZ",
-      "name": "山西焦煤",
-      "shares": 500,
-      "price": 6.37,
-      "cost": 3193.22,
-      "score": 1.6914
+      "code": "sh600185",
+      "name": "珠免集团",
+      "shares": 600,
+      "price": 4.84,
+      "buy_price": 4.84484,
+      "cost": 2911.9330690399997,
+      "sector": "主板",
+      "score": 2.8619365244536943
     },
     {
-      "date": "2026-06-18",
-      "action": "BUY",
-      "code": "603288.SH",
-      "name": "海天味业",
-      "shares": 100,
-      "price": 32.44,
-      "cost": 3252.28,
-      "score": 1.6814
-    },
-    {
-      "date": "2026-06-18",
-      "action": "BUY",
-      "code": "002422.SZ",
-      "name": "科伦药业",
-      "shares": 100,
-      "price": 35.92,
-      "cost": 3600.63,
-      "score": 1.6743
-    },
-    {
-      "date": "2026-06-18",
-      "action": "BUY",
-      "code": "601009.SH",
-      "name": "南京银行",
+      "code": "sh601963",
+      "name": "重庆银行",
       "shares": 300,
       "price": 10.85,
-      "cost": 3263.29,
-      "score": 1.6527
+      "buy_price": 10.86085,
+      "cost": 3263.2875825499996,
+      "sector": "主板",
+      "score": 2.8615582726326743
     },
     {
-      "date": "2026-06-18",
-      "action": "BUY",
-      "code": "002352.SZ",
-      "name": "顺丰控股",
-      "shares": 100,
-      "price": 31.55,
-      "cost": 3163.19,
-      "score": 1.6503
-    },
-    {
-      "date": "2026-06-18",
-      "action": "BUY",
-      "code": "600415.SH",
-      "name": "小商品城",
+      "code": "sz001965",
+      "name": "招商公路",
       "shares": 300,
-      "price": 10.54,
-      "cost": 3170.19,
-      "score": 1.6475
+      "price": 9.82,
+      "buy_price": 9.82982,
+      "cost": 2953.97548946,
+      "sector": "主板",
+      "score": 2.8273386576482835
     },
     {
-      "date": "2026-06-18",
-      "action": "BUY",
-      "code": "600674.SH",
-      "name": "川投能源",
-      "shares": 200,
-      "price": 14.31,
-      "cost": 2869.89,
-      "score": 1.6459
+      "code": "sh603323",
+      "name": "苏农银行",
+      "shares": 800,
+      "price": 4.14,
+      "buy_price": 4.144139999999999,
+      "cost": 3320.3451531199994,
+      "sector": "主板",
+      "score": 2.8146961498439125
     },
     {
-      "date": "2026-06-18",
-      "action": "BUY",
-      "code": "601456.SH",
-      "name": "国联民生",
-      "shares": 300,
-      "price": 9.17,
-      "cost": 2758.78,
-      "score": 1.603
-    },
-    {
-      "date": "2026-06-18",
-      "action": "BUY",
-      "code": "688271.SH",
-      "name": "联影医疗",
-      "shares": 100,
-      "price": 103.48,
-      "cost": 10363.45,
-      "score": 1.5955
-    },
-    {
-      "date": "2026-06-18",
-      "action": "BUY",
-      "code": "300498.SZ",
-      "name": "温氏股份",
-      "shares": 200,
-      "price": 12.36,
-      "cost": 2479.5,
-      "score": 1.5907
-    },
-    {
-      "date": "2026-06-18",
-      "action": "BUY",
-      "code": "600926.SH",
-      "name": "杭州银行",
-      "shares": 200,
-      "price": 15.64,
-      "cost": 3136.16,
-      "score": 1.5879
-    },
-    {
-      "date": "2026-06-18",
-      "action": "BUY",
-      "code": "600048.SH",
-      "name": "保利发展",
-      "shares": 600,
-      "price": 4.92,
-      "cost": 2959.98,
-      "score": 1.5807
-    },
-    {
-      "date": "2026-06-18",
-      "action": "BUY",
-      "code": "600886.SH",
-      "name": "国投电力",
-      "shares": 200,
-      "price": 13.07,
-      "cost": 2621.64,
-      "score": 1.5743
-    },
-    {
-      "date": "2026-06-18",
-      "action": "BUY",
-      "code": "600585.SH",
-      "name": "海螺水泥",
-      "shares": 100,
-      "price": 17.76,
-      "cost": 1782.79,
-      "score": 1.5645
-    },
-    {
-      "date": "2026-06-18",
-      "action": "BUY",
-      "code": "000166.SZ",
-      "name": "申万宏源",
-      "shares": 700,
-      "price": 4.41,
-      "cost": 3095.12,
-      "score": 1.5628
-    },
-    {
-      "date": "2026-06-18",
-      "action": "BUY",
-      "code": "601998.SH",
-      "name": "中信银行",
+      "code": "sh601187",
+      "name": "厦门银行",
       "shares": 400,
-      "price": 7.27,
-      "cost": 2915.94,
-      "score": 1.5628
+      "price": 7.22,
+      "buy_price": 7.227219999999999,
+      "cost": 2895.9169088799995,
+      "sector": "主板",
+      "score": 2.8113983350676377
     },
     {
-      "date": "2026-06-18",
-      "action": "BUY",
-      "code": "600930.SH",
-      "name": "华电新能",
+      "code": "sh600282",
+      "name": "南钢股份",
+      "shares": 700,
+      "price": 4.7,
+      "buy_price": 4.7047,
+      "cost": 3298.3229329,
+      "sector": "主板",
+      "score": 2.81074053069719
+    },
+    {
+      "code": "sh600395",
+      "name": "盘江股份",
       "shares": 600,
-      "price": 5.28,
-      "cost": 3176.2,
-      "score": 1.5484
+      "price": 4.85,
+      "buy_price": 4.854849999999999,
+      "cost": 2917.9391290999993,
+      "sector": "主板",
+      "score": 2.7562190426638917
+    },
+    {
+      "code": "sh600535",
+      "name": "天士力",
+      "shares": 200,
+      "price": 14.09,
+      "buy_price": 14.104089999999998,
+      "cost": 2825.8462081799994,
+      "sector": "主板",
+      "score": 2.745843600416233
+    },
+    {
+      "code": "sh600369",
+      "name": "西南证券",
+      "shares": 800,
+      "price": 3.95,
+      "buy_price": 3.95395,
+      "cost": 3168.1916315999997,
+      "sector": "主板",
+      "score": 2.7420938605619147
+    },
+    {
+      "code": "sz000785",
+      "name": "居然智家",
+      "shares": 1500,
+      "price": 2.16,
+      "buy_price": 2.16216,
+      "cost": 3248.2724324,
+      "sector": "主板",
+      "score": 2.7345676378772117
+    },
+    {
+      "code": "sz300144",
+      "name": "宋城演艺",
+      "shares": 500,
+      "price": 6.09,
+      "buy_price": 6.096089999999999,
+      "cost": 3053.0754804499998,
+      "sector": "主板",
+      "score": 2.733423829344433
     }
-  ],
-  "rules": {
-    "stamp_tax": "0.05% (卖出单向)",
-    "commission": "0.02% (最低5元,买卖双向)",
-    "transfer_fee": "0.001% (买卖双向)",
-    "slippage_buy": "0.1% (买入预估)",
-    "slippage_sell": "0.1% (卖出预估)",
-    "t_plus_1": true,
-    "limit_up_down": "主板±10%, 科创/创业±20%",
-    "lot_size": 100,
-    "rebalance": "月度(每月首个交易日)",
-    "cost_reserve": "0.33%/月 (双边预留)"
-  }
+  ]
 }

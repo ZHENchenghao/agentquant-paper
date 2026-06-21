@@ -1,0 +1,1 @@
+{"pipeline": "Clean v1.0 - Tech Factors Only", "period": "2008-2024", "months": 204, "ann_ret": 319.2, "sharpe": 2.304, "mdd": -9.7, "cum": 4.0968570785972355e+19, "factors": ["rsi6", "rsi14", "boll_pos", "boll_width", "div_ma20", "div_ma60", "div_ma120", "vol_ratio", "ma_score", "rsi_extreme", "margin_panic", "streak5_dn"], "n_factors": 12, "generated": "2026-06-19 16:51"}

@@ -1,0 +1,20 @@
+{
+  "pipeline": "vFinal+ 2002-2024 Full Rolling Backtest",
+  "completed": "2026-06-19 04:00",
+  "data": {
+    "kline_backfill": "5,159,217 rows 2002-2015 (Sina API)",
+    "factor_cache": "16,210,429 rows 2002-2026 (1059 MB)",
+    "rolling_years": "2008-2024 (17 years)"
+  },
+  "summary": {
+    "baseline_annual_ret": "+80.8%",
+    "nlp_annual_ret": "+82.4%",
+    "baseline_sharpe": 1.189,
+    "nlp_sharpe": 1.468,
+    "baseline_mdd": "-76.5%",
+    "nlp_mdd": "-66.4%",
+    "nlp_vol_reduction": "-11.9%",
+    "nlp_sharpe_improvement": "+0.279",
+    "nlp_cumulative_excess": "+8,029%"
+  }
+}
