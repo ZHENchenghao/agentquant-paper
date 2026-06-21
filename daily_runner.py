@@ -240,7 +240,7 @@ if os.path.exists(pf_file):
 # 7. 保存portfolio
 # ═══════════════════════════════════════════════
 acct = {
-    'strategy': '小众战法_vFinal_7F',
+    'strategy': '小众战法_vFinal_8F',
     'date': TARGET,
     'capital': CAPITAL,
     'gate': {'position': gate_pos, 'hs300': float(close), 'dd_2y': float(dd_2y)*100},
@@ -255,7 +255,204 @@ with open(pf_file, 'w', encoding='utf-8') as f:
 print(f'已保存: {pf_file}')
 
 # ═══════════════════════════════════════════════
-# 8. ETF双模信号
+# 8. 实盘执行路由模块 (Live Execution Router)
+# ═══════════════════════════════════════════════
+print(f'\n=== 实盘执行路由 ===')
+
+class LiveExecutionRouter:
+    """T+1~T+3 VWAP分批执行引擎
+
+    输入: 回测引擎的目标持仓 + 当前真实持仓 + 市场数据
+    输出: 3天拆单执行计划 + ADV风控 + 涨跌停阻断
+    """
+    def __init__(self, target_pos_df, current_pos_df, market_data_df):
+        self.target_pos = target_pos_df.set_index("ticker")
+        self.current_pos = current_pos_df.set_index("ticker")
+        self.market_data = market_data_df.set_index("ticker")
+        self.total_assets = current_pos_df["current_value"].sum() if len(current_pos_df) > 0 else CAPITAL
+
+    def generate_execution_plan(self, total_capital_to_deploy, days=3):
+        """生成T+1到T+3的分批执行计划"""
+        all_tickers = list(set(self.target_pos.index).union(set(self.current_pos.index)))
+        plan_list = []
+        pending_alerts = []  # 风控告警
+
+        for ticker in all_tickers:
+            target_weight = self.target_pos.loc[ticker, "target_weight"] if ticker in self.target_pos.index else 0.0
+            current_value = self.current_pos.loc[ticker, "current_value"] if ticker in self.current_pos.index else 0.0
+            current_shares = self.current_pos.loc[ticker, "current_shares"] if ticker in self.current_pos.index else 0
+
+            if ticker not in self.market_data.index:
+                pending_alerts.append(f'[DATA_MISSING] {ticker}: 无行情数据, 跳过')
+                continue
+
+            try:
+                latest_price = float(self.market_data.loc[ticker, "close"])
+                adv_20d = float(self.market_data.loc[ticker, "adv_20d"]) if "adv_20d" in self.market_data.columns else 1e9
+            except (TypeError, ValueError, KeyError):
+                pending_alerts.append(f'[DATA_ERROR] {ticker}: 价格数据异常, 跳过')
+                continue
+            limit_status = self.market_data.loc[ticker, "limit_status"] if "limit_status" in self.market_data.columns else "NORMAL"
+
+            target_value = total_capital_to_deploy * target_weight
+            trade_value = target_value - current_value
+            trade_shares = int(trade_value / latest_price) if latest_price > 0 else 0
+
+            if trade_shares == 0:
+                continue
+
+            # 🔴 防御锁 #2: 涨跌停硬阻断
+            action = "BUY" if trade_shares > 0 else "SELL"
+            if action == "BUY" and limit_status == "LIMIT_UP":
+                pending_alerts.append(f'[LIMIT_UP_BLOCK] {ticker}: 涨停禁止买入, 份额顺延至次日')
+                continue
+            if action == "SELL" and limit_status == "LIMIT_DOWN":
+                pending_alerts.append(f'[LIMIT_DOWN_ALERT] {ticker}: 跌停触发全策略警报! 冻结该题材关联买入')
+                continue
+
+            # T+3 均分拆单
+            daily_shares_base = int(abs(trade_shares) / days)
+            for d in range(1, days + 1):
+                day_shares = abs(trade_shares) - daily_shares_base * (days - 1) if d == days else daily_shares_base
+                if day_shares == 0:
+                    continue
+
+                estimated_day_value = abs(day_shares * latest_price)
+                # 流动性风控: 单日不超过日均成交额5%
+                if estimated_day_value > adv_20d * 0.05:
+                    status = "WARNING: VOLUME_OVERWEIGHT"
+                else:
+                    status = "SAFE"
+
+                plan_list.append({
+                    "Execution_Day": f"T+{d}",
+                    "Ticker": ticker,
+                    "Action": action,
+                    "Total_Trade_Shares": abs(trade_shares),
+                    "Batch_Shares": day_shares,
+                    "Limit_Price": round(latest_price, 3),
+                    "Est_Batch_Value": round(estimated_day_value, 2),
+                    "ADV_Safety": status,
+                })
+
+        df_plan = pd.DataFrame(plan_list)
+
+        # 🔴 防御锁 #1: 卖出优先排序
+        if len(df_plan) > 0:
+            df_plan["_sort_key"] = df_plan["Action"].map({"SELL": 0, "BUY": 1})
+            df_plan = df_plan.sort_values(["_sort_key", "Execution_Day"]).drop(columns=["_sort_key"])
+
+        return df_plan, pending_alerts
+
+
+def get_intraday_time_windows():
+    """实盘日内交易窗口指导 — 避开开收盘拥挤时段"""
+    return {
+        "Morning_Window": "10:00 - 11:15",
+        "Afternoon_Window": "13:30 - 14:45",
+        "Execution_Method": "VWAP (基于过去5日日内成交量分布等比例拆单)",
+        "Avoid": ["09:30-10:00 开盘竞价消散期", "14:45-15:00 尾盘抢筹/砸盘期"]
+    }
+
+
+# ═════════ 8a. 构建执行路由输入 ═════════
+# 目标持仓 (来自回测引擎刚生成的Top30)
+target_df = pd.DataFrame([{
+    'ticker': p['code'],
+    'target_weight': 1.0 / TOP_N  # 等权
+} for p in positions])
+
+# 当前持仓 (从上次portfolio读取)
+current_positions_list = []
+if old_pf and old_pf.get('positions'):
+    for p in old_pf['positions']:
+        current_positions_list.append({
+            'ticker': p['code'],
+            'current_shares': p.get('shares', 0),
+            'current_value': p.get('shares', 0) * p.get('price', 0)
+        })
+current_df = pd.DataFrame(current_positions_list) if current_positions_list else pd.DataFrame(columns=['ticker','current_shares','current_value'])
+
+# 市场数据 (从K线获取最新价+估算ADV)
+con2 = duckdb.connect(DB, read_only=True)
+kt_snapshot = con2.execute(f"""
+    SELECT ts_code, close, pre_close,
+           CASE WHEN close/pre_close >= 1.095 THEN 'LIMIT_UP'
+                WHEN close/pre_close <= 0.905 THEN 'LIMIT_DOWN'
+                ELSE 'NORMAL' END AS limit_status,
+           COALESCE(amount, vol*close) AS amount_proxy
+    FROM kline_daily WHERE trade_date = DATE '{TARGET}'
+""").df()
+
+# 20日日均成交额 (ADV)
+adv_data = con2.execute(f"""
+    SELECT ts_code, AVG(COALESCE(amount, vol*close)) AS adv_20d
+    FROM kline_daily
+    WHERE trade_date >= DATE '{TARGET}' - INTERVAL 30 DAYS
+      AND trade_date <= DATE '{TARGET}'
+    GROUP BY ts_code
+""").df()
+con2.close()
+
+def norm_code(c):
+    return normalize_code(c)
+
+kt_snapshot['ticker'] = kt_snapshot['ts_code'].apply(norm_code)
+adv_data['ticker'] = adv_data['ts_code'].apply(norm_code)
+
+market_df = kt_snapshot[['ticker','close','limit_status','amount_proxy']].copy()
+market_df = market_df.merge(adv_data[['ticker','adv_20d']], on='ticker', how='left')
+market_df['adv_20d'] = market_df['adv_20d'].fillna(market_df['amount_proxy'])
+market_df = market_df.drop(columns=['amount_proxy'])
+market_df = market_df.drop_duplicates(subset='ticker')  # 确保ticker唯一
+
+# ═════════ 8b. 执行路由 ═════════
+router = LiveExecutionRouter(target_df, current_df, market_df)
+exec_plan, alerts = router.generate_execution_plan(CAPITAL * gate_pos, days=3)
+time_windows = get_intraday_time_windows()
+
+print(f'执行计划: {len(exec_plan)}笔拆单')
+if len(exec_plan) > 0:
+    print(f'  T+1: {len(exec_plan[exec_plan.Execution_Day=="T+1"])}笔')
+    print(f'  T+2: {len(exec_plan[exec_plan.Execution_Day=="T+2"])}笔')
+    print(f'  T+3: {len(exec_plan[exec_plan.Execution_Day=="T+3"])}笔')
+    buys = exec_plan[exec_plan.Action=="BUY"]; sells = exec_plan[exec_plan.Action=="SELL"]
+    print(f'  买入: {len(buys)}笔 {buys.Est_Batch_Value.sum():.0f}元')
+    print(f'  卖出: {len(sells)}笔 {sells.Est_Batch_Value.sum():.0f}元')
+    vol_warnings = exec_plan[exec_plan.ADV_Safety.str.contains("WARNING")]
+    if len(vol_warnings) > 0:
+        print(f'  ⚠ ADV超量: {len(vol_warnings)}笔需人工审核')
+
+if alerts:
+    print(f'\n[风控告警]')
+    for a in alerts:
+        print(f'  {a}')
+
+print(f'\n[日内交易窗口]')
+for k, v in time_windows.items():
+    print(f'  {k}: {v}')
+
+# 保存执行计划
+exec_file = f'{DIR}/execution_plan_{TARGET}.json'
+exec_output = {
+    'date': TARGET,
+    'strategy': '小众战法_vFinal_8F',
+    'total_capital': CAPITAL,
+    'gate_position': gate_pos,
+    'time_windows': time_windows,
+    'defense_locks': {
+        'lock1_sell_first': '所有批次SELL优先于BUY执行',
+        'lock2_limit_block': '涨停禁止买入(顺延), 跌停触发全策略警报+冻结关联题材买入'
+    },
+    'execution_plan': exec_plan.to_dict(orient='records') if len(exec_plan) > 0 else [],
+    'alerts': alerts
+}
+with open(exec_file, 'w', encoding='utf-8') as f:
+    json.dump(exec_output, f, ensure_ascii=False, indent=2)
+print(f'\n执行计划已保存: {exec_file}')
+
+# ═══════════════════════════════════════════════
+# 9. ETF双模信号
 # ═══════════════════════════════════════════════
 print(f'\n=== ETF双模 ===')
 try:

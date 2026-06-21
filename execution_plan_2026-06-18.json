@@ -1,0 +1,922 @@
+{
+  "date": "2026-06-18",
+  "strategy": "小众战法_vFinal_8F",
+  "total_capital": 100000,
+  "gate_position": 1.0,
+  "time_windows": {
+    "Morning_Window": "10:00 - 11:15",
+    "Afternoon_Window": "13:30 - 14:45",
+    "Execution_Method": "VWAP (基于过去5日日内成交量分布等比例拆单)",
+    "Avoid": [
+      "09:30-10:00 开盘竞价消散期",
+      "14:45-15:00 尾盘抢筹/砸盘期"
+    ]
+  },
+  "defense_locks": {
+    "lock1_sell_first": "所有批次SELL优先于BUY执行",
+    "lock2_limit_block": "涨停禁止买入(顺延), 跌停触发全策略警报+冻结关联题材买入"
+  },
+  "execution_plan": [
+    {
+      "Execution_Day": "T+1",
+      "Ticker": "sh600800",
+      "Action": "BUY",
+      "Total_Trade_Shares": 952,
+      "Batch_Shares": 317,
+      "Limit_Price": 3.5,
+      "Est_Batch_Value": 1109.5,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+1",
+      "Ticker": "sh600339",
+      "Action": "BUY",
+      "Total_Trade_Shares": 1007,
+      "Batch_Shares": 335,
+      "Limit_Price": 3.31,
+      "Est_Batch_Value": 1108.85,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+1",
+      "Ticker": "sz002807",
+      "Action": "BUY",
+      "Total_Trade_Shares": 850,
+      "Batch_Shares": 283,
+      "Limit_Price": 3.92,
+      "Est_Batch_Value": 1109.36,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+1",
+      "Ticker": "sh600998",
+      "Action": "BUY",
+      "Total_Trade_Shares": 690,
+      "Batch_Shares": 230,
+      "Limit_Price": 4.83,
+      "Est_Batch_Value": 1110.9,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+1",
+      "Ticker": "sh600871",
+      "Action": "BUY",
+      "Total_Trade_Shares": 1557,
+      "Batch_Shares": 519,
+      "Limit_Price": 2.14,
+      "Est_Batch_Value": 1110.66,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+1",
+      "Ticker": "sh600642",
+      "Action": "BUY",
+      "Total_Trade_Shares": 365,
+      "Batch_Shares": 121,
+      "Limit_Price": 9.12,
+      "Est_Batch_Value": 1103.52,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+1",
+      "Ticker": "sh600369",
+      "Action": "BUY",
+      "Total_Trade_Shares": 843,
+      "Batch_Shares": 281,
+      "Limit_Price": 3.95,
+      "Est_Batch_Value": 1109.95,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+1",
+      "Ticker": "sz000822",
+      "Action": "BUY",
+      "Total_Trade_Shares": 766,
+      "Batch_Shares": 255,
+      "Limit_Price": 4.35,
+      "Est_Batch_Value": 1109.25,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+1",
+      "Ticker": "sh601619",
+      "Action": "BUY",
+      "Total_Trade_Shares": 745,
+      "Batch_Shares": 248,
+      "Limit_Price": 4.47,
+      "Est_Batch_Value": 1108.56,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+1",
+      "Ticker": "sh603300",
+      "Action": "BUY",
+      "Total_Trade_Shares": 670,
+      "Batch_Shares": 223,
+      "Limit_Price": 4.97,
+      "Est_Batch_Value": 1108.31,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+1",
+      "Ticker": "sz002948",
+      "Action": "BUY",
+      "Total_Trade_Shares": 602,
+      "Batch_Shares": 200,
+      "Limit_Price": 5.53,
+      "Est_Batch_Value": 1106.0,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+1",
+      "Ticker": "sh600395",
+      "Action": "BUY",
+      "Total_Trade_Shares": 687,
+      "Batch_Shares": 229,
+      "Limit_Price": 4.85,
+      "Est_Batch_Value": 1110.65,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+1",
+      "Ticker": "sh600496",
+      "Action": "BUY",
+      "Total_Trade_Shares": 992,
+      "Batch_Shares": 330,
+      "Limit_Price": 3.36,
+      "Est_Batch_Value": 1108.8,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+1",
+      "Ticker": "sh600120",
+      "Action": "BUY",
+      "Total_Trade_Shares": 729,
+      "Batch_Shares": 243,
+      "Limit_Price": 4.57,
+      "Est_Batch_Value": 1110.51,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+1",
+      "Ticker": "sz000848",
+      "Action": "BUY",
+      "Total_Trade_Shares": 434,
+      "Batch_Shares": 144,
+      "Limit_Price": 7.68,
+      "Est_Batch_Value": 1105.92,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+1",
+      "Ticker": "sh600299",
+      "Action": "BUY",
+      "Total_Trade_Shares": 347,
+      "Batch_Shares": 115,
+      "Limit_Price": 9.58,
+      "Est_Batch_Value": 1101.7,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+1",
+      "Ticker": "sz002482",
+      "Action": "BUY",
+      "Total_Trade_Shares": 2415,
+      "Batch_Shares": 805,
+      "Limit_Price": 1.38,
+      "Est_Batch_Value": 1110.9,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+1",
+      "Ticker": "sz003035",
+      "Action": "BUY",
+      "Total_Trade_Shares": 547,
+      "Batch_Shares": 182,
+      "Limit_Price": 6.09,
+      "Est_Batch_Value": 1108.38,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+1",
+      "Ticker": "sh600908",
+      "Action": "BUY",
+      "Total_Trade_Shares": 626,
+      "Batch_Shares": 208,
+      "Limit_Price": 5.32,
+      "Est_Batch_Value": 1106.56,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+1",
+      "Ticker": "sh600728",
+      "Action": "BUY",
+      "Total_Trade_Shares": 716,
+      "Batch_Shares": 238,
+      "Limit_Price": 4.65,
+      "Est_Batch_Value": 1106.7,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+1",
+      "Ticker": "sh603969",
+      "Action": "BUY",
+      "Total_Trade_Shares": 453,
+      "Batch_Shares": 151,
+      "Limit_Price": 7.35,
+      "Est_Batch_Value": 1109.85,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+1",
+      "Ticker": "sh603707",
+      "Action": "BUY",
+      "Total_Trade_Shares": 466,
+      "Batch_Shares": 155,
+      "Limit_Price": 7.15,
+      "Est_Batch_Value": 1108.25,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+1",
+      "Ticker": "sh600368",
+      "Action": "BUY",
+      "Total_Trade_Shares": 949,
+      "Batch_Shares": 316,
+      "Limit_Price": 3.51,
+      "Est_Batch_Value": 1109.16,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+1",
+      "Ticker": "sh601128",
+      "Action": "BUY",
+      "Total_Trade_Shares": 534,
+      "Batch_Shares": 178,
+      "Limit_Price": 6.24,
+      "Est_Batch_Value": 1110.72,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+1",
+      "Ticker": "sh600582",
+      "Action": "BUY",
+      "Total_Trade_Shares": 683,
+      "Batch_Shares": 227,
+      "Limit_Price": 4.88,
+      "Est_Batch_Value": 1107.76,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+1",
+      "Ticker": "sh601965",
+      "Action": "BUY",
+      "Total_Trade_Shares": 258,
+      "Batch_Shares": 86,
+      "Limit_Price": 12.88,
+      "Est_Batch_Value": 1107.68,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+1",
+      "Ticker": "sh600901",
+      "Action": "BUY",
+      "Total_Trade_Shares": 550,
+      "Batch_Shares": 183,
+      "Limit_Price": 6.05,
+      "Est_Batch_Value": 1107.15,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+1",
+      "Ticker": "sh601727",
+      "Action": "BUY",
+      "Total_Trade_Shares": 455,
+      "Batch_Shares": 151,
+      "Limit_Price": 7.31,
+      "Est_Batch_Value": 1103.81,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+1",
+      "Ticker": "sh601665",
+      "Action": "BUY",
+      "Total_Trade_Shares": 550,
+      "Batch_Shares": 183,
+      "Limit_Price": 6.06,
+      "Est_Batch_Value": 1108.98,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+1",
+      "Ticker": "sh600928",
+      "Action": "BUY",
+      "Total_Trade_Shares": 983,
+      "Batch_Shares": 327,
+      "Limit_Price": 3.39,
+      "Est_Batch_Value": 1108.53,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+2",
+      "Ticker": "sh600800",
+      "Action": "BUY",
+      "Total_Trade_Shares": 952,
+      "Batch_Shares": 317,
+      "Limit_Price": 3.5,
+      "Est_Batch_Value": 1109.5,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+2",
+      "Ticker": "sh600339",
+      "Action": "BUY",
+      "Total_Trade_Shares": 1007,
+      "Batch_Shares": 335,
+      "Limit_Price": 3.31,
+      "Est_Batch_Value": 1108.85,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+2",
+      "Ticker": "sz002807",
+      "Action": "BUY",
+      "Total_Trade_Shares": 850,
+      "Batch_Shares": 283,
+      "Limit_Price": 3.92,
+      "Est_Batch_Value": 1109.36,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+2",
+      "Ticker": "sh600998",
+      "Action": "BUY",
+      "Total_Trade_Shares": 690,
+      "Batch_Shares": 230,
+      "Limit_Price": 4.83,
+      "Est_Batch_Value": 1110.9,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+2",
+      "Ticker": "sh600871",
+      "Action": "BUY",
+      "Total_Trade_Shares": 1557,
+      "Batch_Shares": 519,
+      "Limit_Price": 2.14,
+      "Est_Batch_Value": 1110.66,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+2",
+      "Ticker": "sh600642",
+      "Action": "BUY",
+      "Total_Trade_Shares": 365,
+      "Batch_Shares": 121,
+      "Limit_Price": 9.12,
+      "Est_Batch_Value": 1103.52,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+2",
+      "Ticker": "sh600369",
+      "Action": "BUY",
+      "Total_Trade_Shares": 843,
+      "Batch_Shares": 281,
+      "Limit_Price": 3.95,
+      "Est_Batch_Value": 1109.95,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+2",
+      "Ticker": "sz000822",
+      "Action": "BUY",
+      "Total_Trade_Shares": 766,
+      "Batch_Shares": 255,
+      "Limit_Price": 4.35,
+      "Est_Batch_Value": 1109.25,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+2",
+      "Ticker": "sh601619",
+      "Action": "BUY",
+      "Total_Trade_Shares": 745,
+      "Batch_Shares": 248,
+      "Limit_Price": 4.47,
+      "Est_Batch_Value": 1108.56,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+2",
+      "Ticker": "sh603300",
+      "Action": "BUY",
+      "Total_Trade_Shares": 670,
+      "Batch_Shares": 223,
+      "Limit_Price": 4.97,
+      "Est_Batch_Value": 1108.31,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+2",
+      "Ticker": "sz002948",
+      "Action": "BUY",
+      "Total_Trade_Shares": 602,
+      "Batch_Shares": 200,
+      "Limit_Price": 5.53,
+      "Est_Batch_Value": 1106.0,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+2",
+      "Ticker": "sh600395",
+      "Action": "BUY",
+      "Total_Trade_Shares": 687,
+      "Batch_Shares": 229,
+      "Limit_Price": 4.85,
+      "Est_Batch_Value": 1110.65,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+2",
+      "Ticker": "sh600496",
+      "Action": "BUY",
+      "Total_Trade_Shares": 992,
+      "Batch_Shares": 330,
+      "Limit_Price": 3.36,
+      "Est_Batch_Value": 1108.8,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+2",
+      "Ticker": "sh600120",
+      "Action": "BUY",
+      "Total_Trade_Shares": 729,
+      "Batch_Shares": 243,
+      "Limit_Price": 4.57,
+      "Est_Batch_Value": 1110.51,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+2",
+      "Ticker": "sz000848",
+      "Action": "BUY",
+      "Total_Trade_Shares": 434,
+      "Batch_Shares": 144,
+      "Limit_Price": 7.68,
+      "Est_Batch_Value": 1105.92,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+2",
+      "Ticker": "sh600299",
+      "Action": "BUY",
+      "Total_Trade_Shares": 347,
+      "Batch_Shares": 115,
+      "Limit_Price": 9.58,
+      "Est_Batch_Value": 1101.7,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+2",
+      "Ticker": "sz002482",
+      "Action": "BUY",
+      "Total_Trade_Shares": 2415,
+      "Batch_Shares": 805,
+      "Limit_Price": 1.38,
+      "Est_Batch_Value": 1110.9,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+2",
+      "Ticker": "sz003035",
+      "Action": "BUY",
+      "Total_Trade_Shares": 547,
+      "Batch_Shares": 182,
+      "Limit_Price": 6.09,
+      "Est_Batch_Value": 1108.38,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+2",
+      "Ticker": "sh600908",
+      "Action": "BUY",
+      "Total_Trade_Shares": 626,
+      "Batch_Shares": 208,
+      "Limit_Price": 5.32,
+      "Est_Batch_Value": 1106.56,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+2",
+      "Ticker": "sh600728",
+      "Action": "BUY",
+      "Total_Trade_Shares": 716,
+      "Batch_Shares": 238,
+      "Limit_Price": 4.65,
+      "Est_Batch_Value": 1106.7,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+2",
+      "Ticker": "sh603969",
+      "Action": "BUY",
+      "Total_Trade_Shares": 453,
+      "Batch_Shares": 151,
+      "Limit_Price": 7.35,
+      "Est_Batch_Value": 1109.85,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+2",
+      "Ticker": "sh603707",
+      "Action": "BUY",
+      "Total_Trade_Shares": 466,
+      "Batch_Shares": 155,
+      "Limit_Price": 7.15,
+      "Est_Batch_Value": 1108.25,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+2",
+      "Ticker": "sh600368",
+      "Action": "BUY",
+      "Total_Trade_Shares": 949,
+      "Batch_Shares": 316,
+      "Limit_Price": 3.51,
+      "Est_Batch_Value": 1109.16,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+2",
+      "Ticker": "sh601128",
+      "Action": "BUY",
+      "Total_Trade_Shares": 534,
+      "Batch_Shares": 178,
+      "Limit_Price": 6.24,
+      "Est_Batch_Value": 1110.72,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+2",
+      "Ticker": "sh600582",
+      "Action": "BUY",
+      "Total_Trade_Shares": 683,
+      "Batch_Shares": 227,
+      "Limit_Price": 4.88,
+      "Est_Batch_Value": 1107.76,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+2",
+      "Ticker": "sh601965",
+      "Action": "BUY",
+      "Total_Trade_Shares": 258,
+      "Batch_Shares": 86,
+      "Limit_Price": 12.88,
+      "Est_Batch_Value": 1107.68,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+2",
+      "Ticker": "sh600901",
+      "Action": "BUY",
+      "Total_Trade_Shares": 550,
+      "Batch_Shares": 183,
+      "Limit_Price": 6.05,
+      "Est_Batch_Value": 1107.15,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+2",
+      "Ticker": "sh601727",
+      "Action": "BUY",
+      "Total_Trade_Shares": 455,
+      "Batch_Shares": 151,
+      "Limit_Price": 7.31,
+      "Est_Batch_Value": 1103.81,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+2",
+      "Ticker": "sh601665",
+      "Action": "BUY",
+      "Total_Trade_Shares": 550,
+      "Batch_Shares": 183,
+      "Limit_Price": 6.06,
+      "Est_Batch_Value": 1108.98,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+2",
+      "Ticker": "sh600928",
+      "Action": "BUY",
+      "Total_Trade_Shares": 983,
+      "Batch_Shares": 327,
+      "Limit_Price": 3.39,
+      "Est_Batch_Value": 1108.53,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+3",
+      "Ticker": "sh600800",
+      "Action": "BUY",
+      "Total_Trade_Shares": 952,
+      "Batch_Shares": 318,
+      "Limit_Price": 3.5,
+      "Est_Batch_Value": 1113.0,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+3",
+      "Ticker": "sh600339",
+      "Action": "BUY",
+      "Total_Trade_Shares": 1007,
+      "Batch_Shares": 337,
+      "Limit_Price": 3.31,
+      "Est_Batch_Value": 1115.47,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+3",
+      "Ticker": "sz002807",
+      "Action": "BUY",
+      "Total_Trade_Shares": 850,
+      "Batch_Shares": 284,
+      "Limit_Price": 3.92,
+      "Est_Batch_Value": 1113.28,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+3",
+      "Ticker": "sh600998",
+      "Action": "BUY",
+      "Total_Trade_Shares": 690,
+      "Batch_Shares": 230,
+      "Limit_Price": 4.83,
+      "Est_Batch_Value": 1110.9,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+3",
+      "Ticker": "sh600871",
+      "Action": "BUY",
+      "Total_Trade_Shares": 1557,
+      "Batch_Shares": 519,
+      "Limit_Price": 2.14,
+      "Est_Batch_Value": 1110.66,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+3",
+      "Ticker": "sh600642",
+      "Action": "BUY",
+      "Total_Trade_Shares": 365,
+      "Batch_Shares": 123,
+      "Limit_Price": 9.12,
+      "Est_Batch_Value": 1121.76,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+3",
+      "Ticker": "sh600369",
+      "Action": "BUY",
+      "Total_Trade_Shares": 843,
+      "Batch_Shares": 281,
+      "Limit_Price": 3.95,
+      "Est_Batch_Value": 1109.95,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+3",
+      "Ticker": "sz000822",
+      "Action": "BUY",
+      "Total_Trade_Shares": 766,
+      "Batch_Shares": 256,
+      "Limit_Price": 4.35,
+      "Est_Batch_Value": 1113.6,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+3",
+      "Ticker": "sh601619",
+      "Action": "BUY",
+      "Total_Trade_Shares": 745,
+      "Batch_Shares": 249,
+      "Limit_Price": 4.47,
+      "Est_Batch_Value": 1113.03,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+3",
+      "Ticker": "sh603300",
+      "Action": "BUY",
+      "Total_Trade_Shares": 670,
+      "Batch_Shares": 224,
+      "Limit_Price": 4.97,
+      "Est_Batch_Value": 1113.28,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+3",
+      "Ticker": "sz002948",
+      "Action": "BUY",
+      "Total_Trade_Shares": 602,
+      "Batch_Shares": 202,
+      "Limit_Price": 5.53,
+      "Est_Batch_Value": 1117.06,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+3",
+      "Ticker": "sh600395",
+      "Action": "BUY",
+      "Total_Trade_Shares": 687,
+      "Batch_Shares": 229,
+      "Limit_Price": 4.85,
+      "Est_Batch_Value": 1110.65,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+3",
+      "Ticker": "sh600496",
+      "Action": "BUY",
+      "Total_Trade_Shares": 992,
+      "Batch_Shares": 332,
+      "Limit_Price": 3.36,
+      "Est_Batch_Value": 1115.52,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+3",
+      "Ticker": "sh600120",
+      "Action": "BUY",
+      "Total_Trade_Shares": 729,
+      "Batch_Shares": 243,
+      "Limit_Price": 4.57,
+      "Est_Batch_Value": 1110.51,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+3",
+      "Ticker": "sz000848",
+      "Action": "BUY",
+      "Total_Trade_Shares": 434,
+      "Batch_Shares": 146,
+      "Limit_Price": 7.68,
+      "Est_Batch_Value": 1121.28,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+3",
+      "Ticker": "sh600299",
+      "Action": "BUY",
+      "Total_Trade_Shares": 347,
+      "Batch_Shares": 117,
+      "Limit_Price": 9.58,
+      "Est_Batch_Value": 1120.86,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+3",
+      "Ticker": "sz002482",
+      "Action": "BUY",
+      "Total_Trade_Shares": 2415,
+      "Batch_Shares": 805,
+      "Limit_Price": 1.38,
+      "Est_Batch_Value": 1110.9,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+3",
+      "Ticker": "sz003035",
+      "Action": "BUY",
+      "Total_Trade_Shares": 547,
+      "Batch_Shares": 183,
+      "Limit_Price": 6.09,
+      "Est_Batch_Value": 1114.47,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+3",
+      "Ticker": "sh600908",
+      "Action": "BUY",
+      "Total_Trade_Shares": 626,
+      "Batch_Shares": 210,
+      "Limit_Price": 5.32,
+      "Est_Batch_Value": 1117.2,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+3",
+      "Ticker": "sh600728",
+      "Action": "BUY",
+      "Total_Trade_Shares": 716,
+      "Batch_Shares": 240,
+      "Limit_Price": 4.65,
+      "Est_Batch_Value": 1116.0,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+3",
+      "Ticker": "sh603969",
+      "Action": "BUY",
+      "Total_Trade_Shares": 453,
+      "Batch_Shares": 151,
+      "Limit_Price": 7.35,
+      "Est_Batch_Value": 1109.85,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+3",
+      "Ticker": "sh603707",
+      "Action": "BUY",
+      "Total_Trade_Shares": 466,
+      "Batch_Shares": 156,
+      "Limit_Price": 7.15,
+      "Est_Batch_Value": 1115.4,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+3",
+      "Ticker": "sh600368",
+      "Action": "BUY",
+      "Total_Trade_Shares": 949,
+      "Batch_Shares": 317,
+      "Limit_Price": 3.51,
+      "Est_Batch_Value": 1112.67,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+3",
+      "Ticker": "sh601128",
+      "Action": "BUY",
+      "Total_Trade_Shares": 534,
+      "Batch_Shares": 178,
+      "Limit_Price": 6.24,
+      "Est_Batch_Value": 1110.72,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+3",
+      "Ticker": "sh600582",
+      "Action": "BUY",
+      "Total_Trade_Shares": 683,
+      "Batch_Shares": 229,
+      "Limit_Price": 4.88,
+      "Est_Batch_Value": 1117.52,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+3",
+      "Ticker": "sh601965",
+      "Action": "BUY",
+      "Total_Trade_Shares": 258,
+      "Batch_Shares": 86,
+      "Limit_Price": 12.88,
+      "Est_Batch_Value": 1107.68,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+3",
+      "Ticker": "sh600901",
+      "Action": "BUY",
+      "Total_Trade_Shares": 550,
+      "Batch_Shares": 184,
+      "Limit_Price": 6.05,
+      "Est_Batch_Value": 1113.2,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+3",
+      "Ticker": "sh601727",
+      "Action": "BUY",
+      "Total_Trade_Shares": 455,
+      "Batch_Shares": 153,
+      "Limit_Price": 7.31,
+      "Est_Batch_Value": 1118.43,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+3",
+      "Ticker": "sh601665",
+      "Action": "BUY",
+      "Total_Trade_Shares": 550,
+      "Batch_Shares": 184,
+      "Limit_Price": 6.06,
+      "Est_Batch_Value": 1115.04,
+      "ADV_Safety": "SAFE"
+    },
+    {
+      "Execution_Day": "T+3",
+      "Ticker": "sh600928",
+      "Action": "BUY",
+      "Total_Trade_Shares": 983,
+      "Batch_Shares": 329,
+      "Limit_Price": 3.39,
+      "Est_Batch_Value": 1115.31,
+      "ADV_Safety": "SAFE"
+    }
+  ],
+  "alerts": []
+}
