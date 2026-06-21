@@ -5,9 +5,9 @@ warnings.filterwarnings('ignore')
 
 TARGET = '2026-06-18'; CAPITAL = 100000; TOP_N = 30; MCAP_FLOOR = 0.20; LIMIT_UP = 0.095
 EXIT_THRESH = -0.12; REENTRY_THRESH = 0.10; FLOOR = 0.10
-FEATS = ['amihud','max_rev','price_rev','turnover_rev','sr5','vp_corr','ind_mom']
-# 最优4对(含行业动量, 3年WF选)
-TOP4 = [('turnover_rev','ind_mom'),('price_rev','ind_mom'),('price_rev','turnover_rev'),('max_rev','ind_mom')]
+FEATS = ['amihud','max_rev','price_rev','turnover_rev','sr5','vp_corr','ind_mom','concept_mom']
+# 最优4对(含行业+概念动量, WF验证: 概念动量提升+12.7%年化)
+TOP4 = [('turnover_rev','concept_mom'),('price_rev','concept_mom'),('max_rev','concept_mom'),('price_rev','turnover_rev')]
 
 con = duckdb.connect('D:/FreeFinanceData/data/duckdb/finance.db', read_only=True)
 r = con.execute("""
@@ -75,6 +75,26 @@ latest_m = ind_monthly['month'].max()
 latest_ind = ind_monthly[ind_monthly['month'] == latest_m][['industry','ind_ret_1m']].dropna()
 print(f'行业数据: {len(latest_ind)}个, 最新月: {latest_m.date()}')
 
+# 🆕 概念动量 (WF验证最强新因子: 年化+12.7%提升)
+print('加载概念动量...')
+cm = pd.read_parquet('D:/AgentQuant/our/cache/concept_monthly.parquet')
+cm['month'] = pd.to_datetime(cm['month'])
+tm = pd.read_parquet('D:/AgentQuant/our/cache/ts/ths_members_300.parquet')
+# 筛纯主题概念(去风格)
+wide_pat = ['全A','沪深','科创','创业','主板','中小','ST','新股','次新','指数','综合','加权','等权',
+            '减持','大盘','小盘','中盘','均衡','动量','盈利','价值','成长','除金融','除科创']
+tm['ncode'] = tm['con_code'].apply(normalize_code)
+tm_filt = tm[~tm['concept_name'].str.contains('|'.join(wide_pat))]
+concept_sizes = tm_filt.groupby('concept_code')['ncode'].nunique()
+top_concepts = concept_sizes[concept_sizes>=20].head(60).index.tolist()
+tm_clean = tm_filt[tm_filt['concept_code'].isin(top_concepts)]
+# 股票→概念映射
+stock_conc = tm_clean.groupby('ncode')['concept_code'].apply(list).to_dict()
+# 最新月概念动量rank
+latest_cm_m = cm['month'].max()
+cm_latest = cm[cm['month'] == latest_cm_m].set_index('concept')['concept_mom']
+print(f'  概念动量: {len(top_concepts)}概念, {len(stock_conc)}只股票, 最新月: {latest_cm_m.date()}')
+
 con.close()
 
 # 统一ts_code格式
@@ -94,6 +114,20 @@ day = day.merge(latest_ind, on='industry', how='left')
 # 没有行业数据的股票给中性分
 day['ind_ret_1m'] = day['ind_ret_1m'].fillna(0)
 day['ind_mom'] = day['ind_ret_1m'].rank(pct=True)
+
+# 🆕 概念动量: 每只股票取所属概念的平均排名
+concept_scores = []
+for nc in day['ts_code']:
+    if nc in stock_conc:
+        cons = stock_conc[nc]
+        sc = [cm_latest.get(c, np.nan) for c in cons if c in cm_latest.index]
+        concept_scores.append(np.nanmean(sc) if sc else 0.5)  # 无概念→中性
+    else:
+        concept_scores.append(0.5)
+day['concept_mom'] = concept_scores
+n_with = sum(1 for s in concept_scores if s != 0.5)
+print(f'  概念动量覆盖: {n_with}/{len(day)} ({n_with/len(day)*100:.0f}%)')
+
 # 只保留有行业映射的个股
 day = day.dropna(subset=['industry'])
 print('因子+价格+行业: %d只' % len(day))

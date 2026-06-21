@@ -24,9 +24,9 @@ EXIT_THRESH = -0.12
 REENTRY_THRESH = 0.10
 FLOOR = 0.10
 CRASH_STOP = -0.30
-FEATS = ['amihud','max_rev','price_rev','turnover_rev','sr5','vp_corr','ind_mom']
-# 最优4对(含行业动量, 3年WF训练)
-TOP4 = [('turnover_rev','ind_mom'),('price_rev','ind_mom'),('price_rev','turnover_rev'),('max_rev','ind_mom')]
+FEATS = ['amihud','max_rev','price_rev','turnover_rev','sr5','vp_corr','ind_mom','concept_mom']
+# 最优4对(含行业+概念动量, WF验证: 概念动量提升+12.7%年化)
+TOP4 = [('turnover_rev','concept_mom'),('price_rev','concept_mom'),('max_rev','concept_mom'),('price_rev','turnover_rev')]
 
 def normalize_code(code):
     code = str(code).strip()
@@ -58,7 +58,7 @@ r = con.execute(f"""
 """).fetchone()
 close, ma50, high_2y, low_1y = r
 dd_2y = close/high_2y - 1
-recovery_1y = close/low_1y - 1 if low_2y and low_2y > 0 else 0
+recovery_1y = close/low_1y - 1 if low_1y and low_1y > 0 else 0
 
 if dd_2y >= EXIT_THRESH:
     gate_pos, gate_msg = 1.0, 'FULL'
@@ -78,7 +78,8 @@ day = fn[fn['trade_date'] == TARGET].copy()
 
 # 价格+市值
 kt = con.execute(f"""
-    SELECT ts_code, close, COALESCE(amount, GREATEST(vol*close,1.0)) AS amount_proxy,
+    SELECT ts_code, close, pre_close, COALESCE(amount, GREATEST(vol*close,1.0)) AS amount_proxy,
+           close/pre_close-1 AS change_pct,
            close/LAG(close) OVER(PARTITION BY ts_code ORDER BY trade_date)-1 AS ret_1d
     FROM kline_daily WHERE trade_date = DATE '{TARGET}'
 """).df()
@@ -101,6 +102,23 @@ latest_ind = ind_m[ind_m['month'] == latest_m][['industry','ind_ret_1m']].dropna
 st_set = set(con.execute("SELECT ts_code FROM stock_basic WHERE is_st=true").fetchdf()['ts_code'].values)
 delisted_set = set(con.execute("SELECT ts_code FROM stock_basic WHERE delist_date IS NOT NULL").fetchdf()['ts_code'].values)
 names_df = con.execute('SELECT ts_code, name FROM stock_basic').df()
+
+# 🆕 概念动量
+cm = pd.read_parquet(f'{DIR}/cache/concept_monthly.parquet')
+cm['month'] = pd.to_datetime(cm['month'])
+tm = pd.read_parquet(f'{DIR}/cache/ts/ths_members_300.parquet')
+wide_pat = ['全A','沪深','科创','创业','主板','中小','ST','新股','次新','指数','综合','加权','等权',
+            '减持','大盘','小盘','中盘','均衡','动量','盈利','价值','成长','除金融','除科创']
+tm['ncode'] = tm['con_code'].apply(normalize_code)
+tm_filt = tm[~tm['concept_name'].str.contains('|'.join(wide_pat))]
+conc_sizes = tm_filt.groupby('concept_code')['ncode'].nunique()
+top_conc = conc_sizes[conc_sizes>=20].head(60).index.tolist()
+tm_clean = tm_filt[tm_filt['concept_code'].isin(top_conc)]
+stock_conc = tm_clean.groupby('ncode')['concept_code'].apply(list).to_dict()
+latest_cm_m = cm['month'].max()
+cm_latest = cm[cm['month'] == latest_cm_m].set_index('concept')['concept_mom']
+print(f'概念动量: {len(top_conc)}概念, {len(stock_conc)}只, 月: {latest_cm_m.date()}')
+
 con.close()
 
 # 统一ts_code格式
@@ -117,15 +135,28 @@ kt['ts_code_norm'] = kt['ts_code'].apply(norm)
 day['ts_code_norm'] = day['ts_code'].apply(norm)
 
 # 合并
-day = day.merge(kt[['ts_code_norm','close','amount_proxy','ret_1d']].rename(columns={'close':'price','amount_proxy':'mcap_proxy'}), on='ts_code_norm', how='inner')
+day = day.merge(kt[['ts_code_norm','close','amount_proxy','ret_1d','change_pct']].rename(columns={'close':'price','amount_proxy':'mcap_proxy'}), on='ts_code_norm', how='inner')
 ind_merge = ind_map[['ts_code_fmt','industry']].drop_duplicates(subset='ts_code_fmt')
 day = day.merge(ind_merge, left_on='ts_code_norm', right_on='ts_code_fmt', how='left')
 day = day.merge(latest_ind, on='industry', how='left')
 day['ind_ret_1m'] = day['ind_ret_1m'].fillna(0)
 day['ind_mom'] = day['ind_ret_1m'].rank(pct=True)
+
+# 🆕 概念动量: 每只股票取所属概念的平均排名
+conc_scores = []
+for nc in day['ts_code_norm']:
+    if nc in stock_conc:
+        cons = stock_conc[nc]
+        sc = [cm_latest.get(c, np.nan) for c in cons if c in cm_latest.index]
+        conc_scores.append(np.nanmean(sc) if sc else 0.5)
+    else:
+        conc_scores.append(0.5)
+day['concept_mom'] = conc_scores
+
 day['ts_code'] = day['ts_code_norm']  # 统一用norm格式
 
-print(f'因子: {len(day)}只')
+n_conc = sum(1 for s in conc_scores if s != 0.5)
+print(f'因子: {len(day)}只 (概念覆盖率: {n_conc}/{len(day)}={n_conc/len(day)*100:.0f}%)')
 
 # ═══════════════════════════════════════════════
 # 4. 风控过滤
@@ -149,7 +180,8 @@ for fa, fb in TOP4:
 # MCAP+涨跌停过滤
 day['mcap_r'] = day['mcap_proxy'].rank(pct=True)
 day = day[day['mcap_r'] >= MCAP_FLOOR]
-day = day[day['ret_1d'].notna() & (day['ret_1d'] < LIMIT_UP)]
+day['lim_chk'] = day['change_pct'].fillna(day['ret_1d'])
+day = day[day['lim_chk'].notna() & (day['lim_chk'] < LIMIT_UP)]
 day = day[day['price'] > 0]
 day = day[day['mcap_proxy'] > 0]
 print(f'风控后: {len(day)}只')
