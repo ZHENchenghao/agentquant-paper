@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-AgentQuant · 纸交自动调仓
+圆桌会议 · 纸交自动调仓
 =========================
 跑Agent分析持仓 → SELL清仓 / BUY买入 / HOLD不动 → 更新paper_portfolio
 """

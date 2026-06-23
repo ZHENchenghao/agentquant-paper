@@ -1,0 +1,188 @@
+{
+  "initial_cash": 100000,
+  "cash": 2231.354997665374,
+  "current_date": "2026-06-24",
+  "positions": {
+    "sh600519": {
+      "code": "sh600519",
+      "name": "贵州茅台",
+      "shares": 100,
+      "avg_cost": 1309.7792383573005,
+      "market_price": 1215.0,
+      "market_value": 121500.0,
+      "pnl": -9477.923835730053,
+      "pnl_pct": -7.2362758227997865
+    },
+    "sz000858": {
+      "code": "sz000858",
+      "name": "五 粮 液",
+      "shares": 800,
+      "avg_cost": 83.41178985791343,
+      "market_price": 75.85,
+      "market_value": 60679.99999999999,
+      "pnl": -6049.431886330751,
+      "pnl_pct": -9.065612751859732
+    }
+  },
+  "t_plus_1_lock": {},
+  "order_counter": 73,
+  "snapshots": [
+    {
+      "date": "2026-06-01",
+      "cash": 2231.35,
+      "market_value": 197688.0,
+      "total_value": 199919.35,
+      "pnl": -80.65,
+      "pnl_pct": -0.0004,
+      "positions_count": 2
+    },
+    {
+      "date": "2026-06-02",
+      "cash": 2231.35,
+      "market_value": 196890.0,
+      "total_value": 199121.35,
+      "pnl": -878.65,
+      "pnl_pct": -0.0044,
+      "positions_count": 2
+    },
+    {
+      "date": "2026-06-03",
+      "cash": 2231.35,
+      "market_value": 194071.0,
+      "total_value": 196302.35,
+      "pnl": -3697.65,
+      "pnl_pct": -0.0185,
+      "positions_count": 2
+    },
+    {
+      "date": "2026-06-04",
+      "cash": 2231.35,
+      "market_value": 191680.0,
+      "total_value": 193911.35,
+      "pnl": -6088.65,
+      "pnl_pct": -0.0304,
+      "positions_count": 2
+    },
+    {
+      "date": "2026-06-05",
+      "cash": 2231.35,
+      "market_value": 192150.0,
+      "total_value": 194381.35,
+      "pnl": -5618.65,
+      "pnl_pct": -0.0281,
+      "positions_count": 2
+    },
+    {
+      "date": "2026-06-08",
+      "cash": 2231.35,
+      "market_value": 190266.0,
+      "total_value": 192497.35,
+      "pnl": -7502.65,
+      "pnl_pct": -0.0375,
+      "positions_count": 2
+    },
+    {
+      "date": "2026-06-09",
+      "cash": 2231.35,
+      "market_value": 188888.0,
+      "total_value": 191119.35,
+      "pnl": -8880.65,
+      "pnl_pct": -0.0444,
+      "positions_count": 2
+    },
+    {
+      "date": "2026-06-10",
+      "cash": 2231.35,
+      "market_value": 190900.0,
+      "total_value": 193131.35,
+      "pnl": -6868.65,
+      "pnl_pct": -0.0343,
+      "positions_count": 2
+    },
+    {
+      "date": "2026-06-11",
+      "cash": 2231.35,
+      "market_value": 191732.0,
+      "total_value": 193963.35,
+      "pnl": -6036.65,
+      "pnl_pct": -0.0302,
+      "positions_count": 2
+    },
+    {
+      "date": "2026-06-12",
+      "cash": 2231.35,
+      "market_value": 193127.0,
+      "total_value": 195358.35,
+      "pnl": -4641.65,
+      "pnl_pct": -0.0232,
+      "positions_count": 2
+    },
+    {
+      "date": "2026-06-15",
+      "cash": 2231.35,
+      "market_value": 190814.0,
+      "total_value": 193045.35,
+      "pnl": -6954.65,
+      "pnl_pct": -0.0348,
+      "positions_count": 2
+    },
+    {
+      "date": "2026-06-16",
+      "cash": 2231.35,
+      "market_value": 188322.0,
+      "total_value": 190553.35,
+      "pnl": -9446.65,
+      "pnl_pct": -0.0472,
+      "positions_count": 2
+    },
+    {
+      "date": "2026-06-17",
+      "cash": 2231.35,
+      "market_value": 185992.0,
+      "total_value": 188223.35,
+      "pnl": -11776.65,
+      "pnl_pct": -0.0589,
+      "positions_count": 2
+    },
+    {
+      "date": "2026-06-18",
+      "cash": 2231.35,
+      "market_value": 182180.0,
+      "total_value": 184411.35,
+      "pnl": -15588.65,
+      "pnl_pct": -0.0779,
+      "positions_count": 2
+    },
+    {
+      "date": "2026-06-24",
+      "cash": 2231.35,
+      "market_value": 182180.0,
+      "total_value": 184411.35,
+      "pnl": 84411.35,
+      "pnl_pct": 0.8441,
+      "positions_count": 2
+    }
+  ],
+  "trade_log": [
+    {
+      "date": "2026-06-01",
+      "code": "sh600519",
+      "name": "贵州茅台",
+      "side": "BUY",
+      "shares": 100,
+      "price": 1309.78,
+      "commission": 40.6,
+      "order_id": 1
+    },
+    {
+      "date": "2026-06-01",
+      "code": "sz000858",
+      "name": "五 粮 液",
+      "side": "BUY",
+      "shares": 800,
+      "price": 83.41,
+      "commission": 20.69,
+      "order_id": 2
+    }
+  ]
+}

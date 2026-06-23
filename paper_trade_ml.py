@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-AgentQuant · ML纸交引擎
+圆桌会议 · ML纸交引擎
 ========================
 读取最新数据 → 跑ML模型 → 输出今日买卖清单 → 更新paper_portfolio
 基于 backtest_ml_chain.py 的二次项OLS中性化管线。
@@ -61,7 +61,7 @@ def get_ts_code(raw_code):
 def run():
     t0 = time.time()
     print('='*60)
-    print(f'  AgentQuant · ML纸交引擎')
+    print(f'  圆桌会议 · ML纸交引擎')
     print(f'  运行时间: {date.today().isoformat()}')
     print('='*60)
 

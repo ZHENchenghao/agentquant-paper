@@ -1,30 +1,45 @@
 # -*- coding: utf-8 -*-
-"""自动纸交执行器 v1.0
-- 读取当日到期的执行计划批次
-- 模拟成交(用当日收盘价)
-- 更新paper持仓
-- 检查暴跌止损
 """
-import duckdb, pandas as pd, numpy as np, json, os, sys, io, time, warnings
+圆桌会议 纸交执行器 v3.0 — 双模版 (去天眼依赖)
+==============================================
+paper   : 本地JSON纸交, DuckDB用于价格+涨跌停检查, 价格缺失→前溯
+myquant : 掘金仿真, 完全不依赖DuckDB, 价格=计划价格, 撮合=掘金引擎
+
+用法:
+  python paper_executor.py                          # 纸交模式
+  python paper_executor.py --mode myquant           # 掘金仿真模式
+  python paper_executor.py --mode myquant --token xxx --account xxx
+"""
+import json, os, sys, io, time, warnings, argparse
 from datetime import date, datetime, timedelta
 warnings.filterwarnings('ignore')
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
 
-DB = 'D:/FreeFinanceData/data/duckdb/finance.db'
 DIR = os.path.dirname(os.path.abspath(__file__))
 TODAY = date.today()
 CAPITAL = 100000
 CRASH_STOP = -0.30
 
-print(f'=== 纸交执行器 {TODAY} ===')
+# ═══════════ CLI ═══════════
+p = argparse.ArgumentParser(description='圆桌会议 纸交执行器 v3.0')
+p.add_argument('--mode', default='paper', choices=['paper', 'myquant'])
+p.add_argument('--token', default=os.environ.get('MYQUANT_TOKEN', 'd1f2101ac1bb2e9380acf2c91b0dfc8e85369cdf'))
+p.add_argument('--account', default=os.environ.get('MYQUANT_ACCOUNT', '15d64470-6d88-11f1-932c-00163e022aa6'))
+args = p.parse_args()
 
-# ═══════════ 1. 找到当日需执行的批次 ═══════════
-con = duckdb.connect(DB, read_only=True)
-latest_kline = str(con.execute("SELECT MAX(trade_date) FROM kline_daily").fetchone()[0])
-con.close()
-print(f'最新K线: {latest_kline}')
+print(f'=== 圆桌会议 纸交执行器 v3.0 [{args.mode.upper()}] {TODAY} ===')
 
-# 找最近的执行计划文件
+# ═══════════ 1. 初始化 ═══════════
+from myquant_bridge import TradingBridge
+
+if args.mode == 'myquant':
+    bridge = TradingBridge(mode='myquant', token=args.token, account_id=args.account, capital=CAPITAL)
+    print(f'掘金仿真已连接')
+else:
+    bridge = TradingBridge(mode='paper', paper_dir=DIR, capital=CAPITAL)
+    print(f'纸交模式: {bridge._paper_file}')
+
+# ═══════════ 2. 找到当日批次 ═══════════
 exec_files = sorted([f for f in os.listdir(DIR) if f.startswith('execution_plan_') and f.endswith('.json')],
                     reverse=True)
 if not exec_files:
@@ -36,21 +51,16 @@ with open(os.path.join(DIR, exec_file), 'r', encoding='utf-8') as f:
     plan = json.load(f)
 print(f'执行计划: {exec_file} ({plan["date"]})')
 
-# 确定今天是T+几
 plan_date = datetime.strptime(plan['date'], '%Y-%m-%d').date()
-# 计算交易日偏移: 从plan_date到今天之间有多少个交易日不等于0
-# 简化: 直接用自然日近似, 跳过周末
 days_diff = (TODAY - plan_date).days
 if days_diff <= 0:
     print(f'计划日={plan_date}, 今日={TODAY}, 尚未到执行日')
     sys.exit(0)
 
-# T+1 = 下一个交易日, T+2, T+3
-# 简化: 考虑周末
 trading_days_passed = 0
 d = plan_date + timedelta(days=1)
 while d <= TODAY:
-    if d.weekday() < 5:  # 周一到周五
+    if d.weekday() < 5:
         trading_days_passed += 1
     d += timedelta(days=1)
 
@@ -61,7 +71,7 @@ if trading_days_passed > 3:
 
 print(f'信号日: {plan_date} | 今日: {TODAY} | 执行: {target_day_label}')
 
-# ═══════════ 2. 筛选今日应执行的批次 ═══════════
+# ═══════════ 3. 筛选今日批次 ═══════════
 all_batches = plan.get('execution_plan', [])
 today_batches = [b for b in all_batches if b['Execution_Day'] == target_day_label]
 
@@ -71,51 +81,72 @@ if not today_batches:
 
 print(f'待执行: {len(today_batches)}笔')
 
-# ═══════════ 3. 获取当日收盘价模拟成交 ═══════════
-con = duckdb.connect(DB, read_only=True)
-codes_needed = list(set(b['Ticker'] for b in today_batches))
-# 转ts_code格式
-ts_codes = []
-for c in codes_needed:
-    if c.startswith('sh'): ts_codes.append(f'{c[2:]}.SH')
-    elif c.startswith('sz'): ts_codes.append(f'{c[2:]}.SZ')
-    else: ts_codes.append(c)
+# ═══════════ 4. 价格查找 ═══════════
+# paper模式: DuckDB + 前溯回退
+# myquant模式: 直接用计划价格, 掘金撮合引擎自己匹配
+price_map = {}
+names_map = {}
+limit_map = {}
 
-codes_str = ','.join([f"'{c}'" for c in ts_codes])
-prices_today = con.execute(f"""
-    SELECT ts_code, close, pre_close,
-           close/pre_close-1 AS change_pct,
-           CASE WHEN close/pre_close >= 1.095 THEN 'LIMIT_UP'
-                WHEN close/pre_close <= 0.905 THEN 'LIMIT_DOWN'
-                ELSE 'NORMAL' END AS limit_status
-    FROM kline_daily
-    WHERE trade_date = '{latest_kline}'
-      AND ts_code IN ({codes_str})
-""").df()
+if args.mode == 'paper':
+    import duckdb
+    DB = 'D:/FreeFinanceData/data/duckdb/finance.db'
+    con = duckdb.connect(DB, read_only=True)
+    latest_kline = str(con.execute("SELECT MAX(trade_date) FROM kline_daily").fetchone()[0])
 
-# 加载股票名称
-names_df = con.execute("SELECT ts_code, name FROM stock_basic").df()
-con.close()
+    codes_needed = list(set(b['Ticker'] for b in today_batches))
+    ts_codes = []
+    for c in codes_needed:
+        if c.startswith('sh'): ts_codes.append(f'{c[2:]}.SH')
+        elif c.startswith('sz'): ts_codes.append(f'{c[2:]}.SZ')
+        else: ts_codes.append(c)
 
-def norm(c):
-    c = str(c).strip()
-    if '.' in c: return c.split('.')[1].lower()+c.split('.')[0]
-    return c.lower()
+    for ts in ts_codes:
+        ticker = ts.split('.')[1].lower() + ts.split('.')[0]
+        # 前溯查找: 从最新日期往回找, 最多5天
+        for offset in range(5):
+            r = con.execute(f"""
+                SELECT close, pre_close
+                FROM kline_daily
+                WHERE ts_code = ? AND trade_date <= DATE '{latest_kline}' - INTERVAL {offset} DAY
+                ORDER BY trade_date DESC LIMIT 1
+            """, [ts]).fetchone()
+            if r and r[0] and r[0] > 0:
+                price_map[ticker] = float(r[0])
+                # 涨跌停
+                if r[1] and r[1] > 0:
+                    chg = r[0] / r[1] - 1
+                    if chg >= 0.095:
+                        limit_map[ticker] = 'LIMIT_UP'
+                    elif chg <= -0.095:
+                        limit_map[ticker] = 'LIMIT_DOWN'
+                break
 
-prices_today['ticker'] = prices_today['ts_code'].apply(norm)
-price_map = prices_today.set_index('ticker')
+    # 股票名称
+    try:
+        names_df = con.execute("SELECT ts_code, name FROM stock_basic").df()
+        def _norm(c):
+            c = str(c).strip()
+            if '.' in c: return c.split('.')[1].lower() + c.split('.')[0]
+            return c.lower()
+        for _, row in names_df.iterrows():
+            t = _norm(row['ts_code'])
+            names_map[t] = str(row['name'])
+    except Exception:
+        pass
 
-# ═══════════ 4. 模拟执行 ═══════════
-pf_file = os.path.join(DIR, 'paper_portfolio_xiaozhong.json')
-if os.path.exists(pf_file):
-    with open(pf_file, 'r', encoding='utf-8') as f:
-        portfolio = json.load(f)
+    con.close()
+    print(f'价格: {len(price_map)}/{len(today_batches)}只有数据 (K线={latest_kline})')
+
 else:
-    portfolio = {'strategy': '小众战法_vFinal_8F', 'date': str(TODAY), 'capital': CAPITAL,
-                 'positions': [], 'cash': CAPITAL, 'invested': 0, 'trades': []}
+    # myquant模式: 用计划中的价格, 不查DuckDB
+    for batch in today_batches:
+        ticker = batch['Ticker']
+        price_map[ticker] = batch.get('Limit_Price', 0)
+        names_map[ticker] = batch.get('Name', ticker)
+    print(f'掘金模式: {len(today_batches)}笔, 价格=计划价, 撮合=掘金引擎')
 
-positions = {p['code']: p for p in portfolio.get('positions', [])}
-cash = portfolio.get('cash', CAPITAL)
+# ═══════════ 5. 执行交易 ═══════════
 trades_today = []
 alerts = []
 
@@ -123,122 +154,102 @@ for batch in today_batches:
     ticker = batch['Ticker']
     action = batch['Action']
     shares = batch['Batch_Shares']
+    name = names_map.get(ticker, ticker)
+    limit = limit_map.get(ticker, 'NORMAL')
 
-    if ticker not in price_map.index:
-        alerts.append(f'[NO_PRICE] {ticker}: 无当日行情, 跳过')
+    # 价格来源: price_map有就用, 没有就用计划价格
+    fill_price = price_map.get(ticker, batch.get('Limit_Price', 0))
+    if fill_price <= 0:
+        alerts.append(f'[NO_PRICE] {ticker}: 无可用价格, 跳过')
         continue
 
-    price_row = price_map.loc[ticker]
-    fill_price = float(price_row['close'])
-    limit = price_row.get('limit_status', 'NORMAL')
+    # 涨跌停阻断 (paper模式)
+    if args.mode == 'paper':
+        if action == 'BUY' and limit == 'LIMIT_UP':
+            alerts.append(f'[LIMIT_UP_BLOCK] {ticker}: 涨停, 买入顺延')
+            continue
+        if action == 'SELL' and limit == 'LIMIT_DOWN':
+            alerts.append(f'[LIMIT_DOWN_ALERT] {ticker}: 跌停, 无法卖出!')
+            continue
 
-    # 🔴 涨跌停阻断
-    if action == 'BUY' and limit == 'LIMIT_UP':
-        alerts.append(f'[LIMIT_UP_BLOCK] {ticker}: 涨停, 买入顺延')
-        continue
-    if action == 'SELL' and limit == 'LIMIT_DOWN':
-        alerts.append(f'[LIMIT_DOWN_ALERT] {ticker}: 跌停, 无法卖出!')
-        continue
-
-    name = names_df[names_df['ts_code'].apply(norm)==ticker]['name'].values
-    name = name[0] if len(name) > 0 else ticker
-
+    # 下单
     if action == 'BUY':
-        cost = shares * fill_price * 1.00033  # 含手续费
-        if cost > cash:
-            actual_shares = int(cash / (fill_price * 1.00033) / 100) * 100
-            if actual_shares == 0:
-                alerts.append(f'[CASH_SHORT] {ticker}: 现金不足, 跳过')
-                continue
-            shares = actual_shares
-            cost = shares * fill_price * 1.00033
-
-        cash -= cost
-        if ticker in positions:
-            old = positions[ticker]
-            total_shares = old['shares'] + shares
-            avg_price = (old['buy_price'] * old['shares'] + fill_price * shares) / total_shares
-            positions[ticker] = {'code': ticker, 'name': name, 'shares': total_shares,
-                                 'buy_price': round(avg_price, 3), 'price': float(fill_price),
-                                 'cost': old.get('cost', 0) + cost}
+        result = bridge.buy(ticker, fill_price, shares, name)
+        if result['success']:
+            actual_shares = result.get('shares', shares)
+            cost = result.get('cost', actual_shares * fill_price * 1.00033)
+            trades_today.append(f'BUY  {name}({ticker}) {actual_shares}股 @{fill_price:.2f}')
         else:
-            positions[ticker] = {'code': ticker, 'name': name, 'shares': shares,
-                                 'buy_price': float(fill_price), 'price': float(fill_price),
-                                 'cost': float(cost)}
-        trades_today.append(f'BUY  {name}({ticker}) {shares}股 @{fill_price:.2f} 花费{cost:.0f}')
+            alerts.append(f'[BUY_FAIL] {ticker}: {result.get("error", "unknown")}')
 
     elif action == 'SELL':
-        if ticker not in positions:
-            alerts.append(f'[NO_POS] {ticker}: 无持仓可卖')
-            continue
-        pos = positions[ticker]
-        actual_shares = min(shares, pos['shares'])
-        revenue = actual_shares * fill_price * 0.99967  # 扣除手续费
-        cash += revenue
-        remaining = pos['shares'] - actual_shares
-        if remaining > 0:
-            positions[ticker]['shares'] = remaining
+        result = bridge.sell(ticker, fill_price, shares, name)
+        if result['success']:
+            actual_shares = result.get('shares', shares)
+            revenue = result.get('revenue', actual_shares * fill_price * 0.99967)
+            trades_today.append(f'SELL {name}({ticker}) {actual_shares}股 @{fill_price:.2f}')
         else:
-            del positions[ticker]
-        trades_today.append(f'SELL {name}({ticker}) {actual_shares}股 @{fill_price:.2f} 回笼{revenue:.0f}')
+            alerts.append(f'[SELL_FAIL] {ticker}: {result.get("error", "unknown")}')
 
-# ═══════════ 5. 暴跌止损检查 ═══════════
+# ═══════════ 6. 暴跌止损检查 ═══════════
+positions = bridge.get_positions()
 stopped = []
-for code, pos in positions.items():
-    if code in price_map.index:
-        current_price = float(price_map.loc[code, 'close'])
-        pnl = current_price / pos['buy_price'] - 1
-        if pnl < CRASH_STOP:
-            stopped.append({'code': code, 'name': pos['name'], 'pnl': pnl, 'buy_price': pos['buy_price']})
-            alerts.append(f'[CRASH_STOP] {pos["name"]}({code}) 亏损{pnl*100:.1f}% 触发止损!')
 
-# 执行止损卖出
+if args.mode == 'paper' and price_map:
+    for pos in positions:
+        code = pos['code']
+        if code in price_map:
+            current_price = price_map[code]
+            pnl = current_price / pos['buy_price'] - 1
+            if pnl < CRASH_STOP:
+                stopped.append({'code': code, 'name': pos.get('name', ''), 'pnl': pnl,
+                              'buy_price': pos['buy_price']})
+
+elif args.mode == 'myquant':
+    # 掘金持仓自带 last_price
+    for pos in positions:
+        current_price = pos.get('price', pos.get('buy_price', 0))
+        buy_price = pos.get('buy_price', current_price)
+        if buy_price > 0 and current_price > 0:
+            pnl = current_price / buy_price - 1
+            if pnl < CRASH_STOP:
+                stopped.append({'code': pos['code'], 'name': pos.get('name', ''), 'pnl': pnl,
+                              'buy_price': buy_price})
+
+# 标记
+if stopped:
+    for s in stopped:
+        alerts.append(f'[CRASH_STOP] {s["name"]}({s["code"]}) 亏损{s["pnl"]*100:.1f}% 触发止损!')
+
+# 执行止损
 for s in stopped:
-    code = s['code']
-    if code in positions:
-        current_price = float(price_map.loc[code, 'close'])
-        pos = positions[code]
-        revenue = pos['shares'] * current_price * 0.99967
-        cash += revenue
-        trades_today.append(f'STOP {pos["name"]}({code}) {pos["shares"]}股 @{current_price:.2f} 止损!')
-        del positions[code]
+    cp = price_map.get(s['code'], s['buy_price'])
+    pos = next((p for p in positions if p['code'] == s['code']), None)
+    if pos:
+        result = bridge.sell(s['code'], cp, pos.get('shares', 0), s.get('name', ''))
+        if result['success']:
+            actual_shares = result.get('shares', pos.get('shares', 0))
+            trades_today.append(f'STOP {s["name"]}({s["code"]}) {actual_shares}股 @{cp:.2f} 止损!')
 
-# ═══════════ 6. 更新持仓市值 ═══════════
-total_market_value = 0
-for code, pos in positions.items():
-    if code in price_map.index:
-        pos['price'] = float(price_map.loc[code, 'close'])
-        total_market_value += pos['shares'] * pos['price']
+# 刷新
+positions = bridge.get_positions()
 
-# ═══════════ 7. 保存 ═══════════
-portfolio = {
-    'strategy': '小众战法_vFinal_8F',
-    'date': str(TODAY),
-    'capital': CAPITAL,
-    'cash': round(cash, 2),
-    'invested': round(total_market_value, 2),
-    'total_value': round(cash + total_market_value, 2),
-    'pnl_total': round(cash + total_market_value - CAPITAL, 2),
-    'pnl_pct': round((cash + total_market_value) / CAPITAL - 1, 4),
-    'positions': list(positions.values()),
-    'trades_today': trades_today,
-    'alerts': alerts,
-    'stop_loss_triggered': len(stopped) > 0
-}
-
-with open(pf_file, 'w', encoding='utf-8') as f:
-    json.dump(portfolio, f, ensure_ascii=False, indent=2)
-
-# ═══════════ 8. 输出 ═══════════
-print(f'\n--- 执行结果 ---')
+# ═══════════ 7. 输出 ═══════════
+print(f'\n--- 执行结果 [{args.mode.upper()}] ---')
 for t in trades_today:
     print(f'  {t}')
+
 if alerts:
     print(f'\n[告警]')
     for a in alerts:
         print(f'  !! {a}')
 
-print(f'\n持仓: {len(positions)}只 | 市值: {total_market_value:.0f} | 现金: {cash:.0f}')
-print(f'总资产: {cash+total_market_value:.0f} | 累计盈亏: {cash+total_market_value-CAPITAL:+.0f}')
-print(f'已保存: {pf_file}')
+status = bridge.get_status()
+print(f'\n持仓: {status["positions_count"]}只 | 总资产: {status["total_value"]:.0f} | 现金: {status["cash"]:.0f}')
+if status.get('pnl') is not None:
+    print(f'累计盈亏: {status["pnl"]:+.0f} ({status["pnl"]/CAPITAL*100:+.2f}%)')
+
+if args.mode == 'paper':
+    print(f'\n已保存: {bridge._paper_file}')
+
 print('Done.')

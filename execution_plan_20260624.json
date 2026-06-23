@@ -1,0 +1,313 @@
+{
+  "strategy": "小众战法_vFinal_8F",
+  "date": "2026-06-24",
+  "signal_date": "2026-06-23",
+  "capital": 100000,
+  "gate": {
+    "position": 1.0,
+    "hs300": 4919.386,
+    "dd_2y": -0.02772361293984693
+  },
+  "orders": [
+    {
+      "ticker": "sz000166",
+      "myquant_code": "SZSE.000166",
+      "name": "申万宏源",
+      "action": "BUY",
+      "shares": 700,
+      "limit_price": 4.63,
+      "reference_price": 4.61,
+      "estimated_cost": 3235.26
+    },
+    {
+      "ticker": "sh601818",
+      "myquant_code": "SHSE.601818",
+      "name": "光大银行",
+      "action": "BUY",
+      "shares": 1000,
+      "limit_price": 3.13,
+      "reference_price": 3.11,
+      "estimated_cost": 3118.14
+    },
+    {
+      "ticker": "sh601916",
+      "myquant_code": "SHSE.601916",
+      "name": "浙商银行",
+      "action": "BUY",
+      "shares": 1000,
+      "limit_price": 3.09,
+      "reference_price": 3.07,
+      "estimated_cost": 3078.1
+    },
+    {
+      "ticker": "sh601390",
+      "myquant_code": "SHSE.601390",
+      "name": "中国中铁",
+      "action": "BUY",
+      "shares": 700,
+      "limit_price": 4.53,
+      "reference_price": 4.51,
+      "estimated_cost": 3165.19
+    },
+    {
+      "ticker": "sh600050",
+      "myquant_code": "SHSE.600050",
+      "name": "中国联通",
+      "action": "BUY",
+      "shares": 700,
+      "limit_price": 4.3,
+      "reference_price": 4.28,
+      "estimated_cost": 3004.03
+    },
+    {
+      "ticker": "sh601169",
+      "myquant_code": "SHSE.601169",
+      "name": "北京银行",
+      "action": "BUY",
+      "shares": 600,
+      "limit_price": 5.13,
+      "reference_price": 5.1,
+      "estimated_cost": 3068.09
+    },
+    {
+      "ticker": "sh600016",
+      "myquant_code": "SHSE.600016",
+      "name": "民生银行",
+      "action": "BUY",
+      "shares": 900,
+      "limit_price": 3.51,
+      "reference_price": 3.49,
+      "estimated_cost": 3149.17
+    },
+    {
+      "ticker": "sh601658",
+      "myquant_code": "SHSE.601658",
+      "name": "邮储银行",
+      "action": "BUY",
+      "shares": 600,
+      "limit_price": 5.09,
+      "reference_price": 5.06,
+      "estimated_cost": 3044.07
+    },
+    {
+      "ticker": "sh600015",
+      "myquant_code": "SHSE.600015",
+      "name": "华夏银行",
+      "action": "BUY",
+      "shares": 400,
+      "limit_price": 6.87,
+      "reference_price": 6.84,
+      "estimated_cost": 2743.76
+    },
+    {
+      "ticker": "sh601816",
+      "myquant_code": "SHSE.601816",
+      "name": "京沪高铁",
+      "action": "BUY",
+      "shares": 700,
+      "limit_price": 4.66,
+      "reference_price": 4.64,
+      "estimated_cost": 3256.28
+    },
+    {
+      "ticker": "sh600048",
+      "myquant_code": "SHSE.600048",
+      "name": "保利发展",
+      "action": "BUY",
+      "shares": 600,
+      "limit_price": 4.94,
+      "reference_price": 4.92,
+      "estimated_cost": 2959.98
+    },
+    {
+      "ticker": "sz000617",
+      "myquant_code": "SZSE.000617",
+      "name": "中油资本",
+      "action": "BUY",
+      "shares": 400,
+      "limit_price": 7.39,
+      "reference_price": 7.35,
+      "estimated_cost": 2947.97
+    },
+    {
+      "ticker": "sh601077",
+      "myquant_code": "SHSE.601077",
+      "name": "渝农商行",
+      "action": "BUY",
+      "shares": 500,
+      "limit_price": 6.56,
+      "reference_price": 6.53,
+      "estimated_cost": 3273.3
+    },
+    {
+      "ticker": "sh601766",
+      "myquant_code": "SHSE.601766",
+      "name": "中国中车",
+      "action": "BUY",
+      "shares": 600,
+      "limit_price": 5.46,
+      "reference_price": 5.43,
+      "estimated_cost": 3266.29
+    },
+    {
+      "ticker": "sz002736",
+      "myquant_code": "SZSE.002736",
+      "name": "国信证券",
+      "action": "BUY",
+      "shares": 300,
+      "limit_price": 10.36,
+      "reference_price": 10.31,
+      "estimated_cost": 3101.12
+    },
+    {
+      "ticker": "sz300015",
+      "myquant_code": "SZSE.300015",
+      "name": "爱尔眼科",
+      "action": "BUY",
+      "shares": 300,
+      "limit_price": 8.62,
+      "reference_price": 8.58,
+      "estimated_cost": 2581.6
+    },
+    {
+      "ticker": "sh601668",
+      "myquant_code": "SHSE.601668",
+      "name": "中国建筑",
+      "action": "BUY",
+      "shares": 700,
+      "limit_price": 4.59,
+      "reference_price": 4.57,
+      "estimated_cost": 3207.23
+    },
+    {
+      "ticker": "sh600019",
+      "myquant_code": "SHSE.600019",
+      "name": "宝钢股份",
+      "action": "BUY",
+      "shares": 500,
+      "limit_price": 5.81,
+      "reference_price": 5.78,
+      "estimated_cost": 2897.92
+    },
+    {
+      "ticker": "sh601878",
+      "myquant_code": "SHSE.601878",
+      "name": "浙商证券",
+      "action": "BUY",
+      "shares": 300,
+      "limit_price": 9.72,
+      "reference_price": 9.67,
+      "estimated_cost": 2908.93
+    },
+    {
+      "ticker": "sh601901",
+      "myquant_code": "SHSE.601901",
+      "name": "方正证券",
+      "action": "BUY",
+      "shares": 400,
+      "limit_price": 7.09,
+      "reference_price": 7.05,
+      "estimated_cost": 2827.85
+    },
+    {
+      "ticker": "sh601377",
+      "myquant_code": "SHSE.601377",
+      "name": "兴业证券",
+      "action": "BUY",
+      "shares": 500,
+      "limit_price": 6.25,
+      "reference_price": 6.22,
+      "estimated_cost": 3118.14
+    },
+    {
+      "ticker": "sh601229",
+      "myquant_code": "SHSE.601229",
+      "name": "上海银行",
+      "action": "BUY",
+      "shares": 300,
+      "limit_price": 9.17,
+      "reference_price": 9.12,
+      "estimated_cost": 2743.76
+    },
+    {
+      "ticker": "sz002027",
+      "myquant_code": "SZSE.002027",
+      "name": "分众传媒",
+      "action": "BUY",
+      "shares": 600,
+      "limit_price": 4.94,
+      "reference_price": 4.92,
+      "estimated_cost": 2959.98
+    },
+    {
+      "ticker": "sh688472",
+      "myquant_code": "SHSE.688472",
+      "name": "阿特斯",
+      "action": "BUY",
+      "shares": 300,
+      "limit_price": 11.1,
+      "reference_price": 11.04,
+      "estimated_cost": 3320.35
+    },
+    {
+      "ticker": "sh600061",
+      "myquant_code": "SHSE.600061",
+      "name": "国投资本",
+      "action": "BUY",
+      "shares": 400,
+      "limit_price": 6.71,
+      "reference_price": 6.68,
+      "estimated_cost": 2679.7
+    },
+    {
+      "ticker": "sz300251",
+      "myquant_code": "SZSE.300251",
+      "name": "光线传媒",
+      "action": "BUY",
+      "shares": 200,
+      "limit_price": 11.79,
+      "reference_price": 11.73,
+      "estimated_cost": 2353.37
+    },
+    {
+      "ticker": "sz002236",
+      "myquant_code": "SZSE.002236",
+      "name": "大华股份",
+      "action": "BUY",
+      "shares": 200,
+      "limit_price": 16.01,
+      "reference_price": 15.93,
+      "estimated_cost": 3194.22
+    },
+    {
+      "ticker": "sh601728",
+      "myquant_code": "SHSE.601728",
+      "name": "中国电信",
+      "action": "BUY",
+      "shares": 500,
+      "limit_price": 5.59,
+      "reference_price": 5.56,
+      "estimated_cost": 2787.81
+    },
+    {
+      "ticker": "sh600010",
+      "myquant_code": "SHSE.600010",
+      "name": "包钢股份",
+      "action": "BUY",
+      "shares": 1400,
+      "limit_price": 2.36,
+      "reference_price": 2.35,
+      "estimated_cost": 3298.32
+    },
+    {
+      "ticker": "sh601788",
+      "myquant_code": "SHSE.601788",
+      "name": "光大证券",
+      "action": "BUY",
+      "shares": 200,
+      "limit_price": 15.09,
+      "reference_price": 15.01,
+      "estimated_cost": 3010.03
+    }
+  ]
+}
