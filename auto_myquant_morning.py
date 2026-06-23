@@ -145,6 +145,15 @@ try:
             print(f'  ⚠ {cmd[:20]}: {r.stderr[:80]}')
     print('Git推送完成 ✅')
 
+    # 7. 10点关机
+    now = datetime.now()
+    target = now.replace(hour=10, minute=0, second=0)
+    if now >= target:
+        target = target.replace(hour=22)  # 兜底: 晚上10点
+    wait_sec = max(30, (target - now).total_seconds())
+    print(f'{now:%H:%M:%S} → 计划{target:%H:%M}关机 (等待{wait_sec/60:.0f}分钟)')
+    os.system(f'shutdown /s /t {int(wait_sec)} /f')
+
 except Exception as e:
     print(f'❌ 异常: {e}')
     import traceback
