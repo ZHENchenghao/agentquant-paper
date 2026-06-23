@@ -107,11 +107,43 @@ try:
     print(f'{"✅ 掘金=纸交=30只小众战法" if len(pos_after) >= 25 else "⚠ 需检查"}')
     print(f'{datetime.now():%H:%M:%S} 完成')
 
-    # 写状态文件到桌面,出门手机也能看
+    # 写状态文件
     with open(f'{DIR}/trade_status.txt', 'w', encoding='utf-8') as sf:
         sf.write(f'{datetime.now():%Y-%m-%d %H:%M} 掘金自动交易\n')
         sf.write(f'持仓:{len(pos_after)}只 现金:{c.available:,.0f} 总资产:{c.nav:,.0f}\n')
         sf.write(f'买入:{ok}成功 {fail}失败\n')
+
+    # 6. 更新日志并Git提交
+    print('\n--- Git存档 ---')
+    import subprocess
+    os.chdir(DIR)
+
+    # 更新paper_daily_log.md
+    today_str = datetime.now().strftime('%Y-%m-%d')
+    log_entry = f'| {today_str} | {len(pos_after)}只 | ¥{c.available+c.nav-c.available:,.0f} | ¥{c.available:,.0f} | FULL | {HS300_CLOSE:.0f} | — |\n'
+    with open(f'{DIR}/paper_daily_log.md', 'r', encoding='utf-8') as lf:
+        log_content = lf.read()
+    # 在表格中追加一行
+    if today_str not in log_content:
+        # 找到表格最后一行日期后插入
+        insert_pos = log_content.rfind('| 2026')
+        if insert_pos > 0:
+            line_end = log_content.find('\n', insert_pos)
+            log_content = log_content[:line_end+1] + log_entry + log_content[line_end+1:]
+            with open(f'{DIR}/paper_daily_log.md', 'w', encoding='utf-8') as lf:
+                lf.write(log_content)
+            print(f'日志已更新: {today_str}')
+
+    # Git提交
+    for cmd in [
+        'git add paper_portfolio_xiaozhong.json sim_account.json paper_daily_log.md trade_status.txt auto_trade_log.txt',
+        f'git commit -m "纸交 {today_str} — 掘金自动执行 {len(pos_after)}只" --allow-empty',
+        'git push origin master',
+    ]:
+        r = subprocess.run(cmd, shell=True, capture_output=True, text=True)
+        if r.returncode != 0 and 'nothing to commit' not in r.stderr:
+            print(f'  ⚠ {cmd[:20]}: {r.stderr[:80]}')
+    print('Git推送完成 ✅')
 
 except Exception as e:
     print(f'❌ 异常: {e}')
