@@ -114,7 +114,9 @@ if HAS_AK:
                 'code': str(r['code']), 'shares': shares, 'price': float(price),
                 'buy_price': float(bp), 'cost': float(cost), 'score': float(r['score'])
             })
-            print(f'  {r[\"code\"]} score={r[\"score\"]:.3f} price={price:.2f} {shares}股')
+            code_str = r['code']
+            score_val = r['score']
+            print(f'  {code_str} score={score_val:.3f} price={price:.2f} {shares}股')
     except Exception as e:
         print(f'选股失败: {e}')
 
