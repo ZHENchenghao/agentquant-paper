@@ -1,7 +1,7 @@
 {
   "initial_cash": 100000,
   "cash": 11366.72,
-  "current_date": "2026-06-24",
+  "current_date": "2026-06-25",
   "positions": {
     "sz000166": {
       "code": "sz000166",
@@ -308,7 +308,7 @@
   "order_counter": 1,
   "snapshots": [
     {
-      "date": "2026-06-24",
+      "date": "2026-06-25",
       "cash": 11366.72,
       "market_value": 88633.28,
       "total_value": 100000,
@@ -319,9 +319,9 @@
   ],
   "trade_log": [
     {
-      "date": "2026-06-24",
+      "date": "2026-06-25",
       "action": "REBALANCE",
-      "note": "小众战法30只建仓"
+      "note": "小众战法30只"
     }
   ]
 }
