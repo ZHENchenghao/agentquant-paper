@@ -14,7 +14,10 @@ class Tee:
     def write(self, s):
         self.f.write(s)
         self.f.flush()
-        self.stdout.write(s)
+        try:
+            self.stdout.write(s)
+        except UnicodeEncodeError:
+            self.stdout.write(s.encode('ascii', errors='replace').decode('ascii'))
     def flush(self):
         self.f.flush()
         self.stdout.flush()
@@ -38,10 +41,18 @@ try:
     set_endpoint(ENDPOINT)
     a = account(account_id=ACCOUNT, account_alias='')
     login(a)
-    print('✅ 掘金登录成功')
+    print('[OK] 掘金登录成功')
 
     c = get_cash()
     pos_before = get_positions()
+    HS300_CLOSE = 4919
+    try:
+        from gmtrade.api import get_history
+        hs = get_history(symbol='SHSE.000300', frequency='1d', count=2)
+        if hs and len(hs) > 0:
+            HS300_CLOSE = float(hs[-1].close)
+    except:
+        pass
     print(f'交易前: 持仓{len(pos_before)}只 | 现金{c.available:,.0f} | 总资产{c.nav:,.0f}')
 
     # 1. 撤所有旧单
@@ -63,11 +74,11 @@ try:
             time.sleep(3)
             pos = get_positions()
             if not pos:
-                print('  全部成交 ✅')
+                print('  全部成交 [OK]')
                 break
             print(f'  等待... 剩{len(pos)}只')
         else:
-            print(f'  ⚠ 超时,剩余{len(pos)}只未成交')
+            print(f'  [!] 超时,剩余{len(pos)}只未成交')
     else:
         print('无持仓需清')
 
@@ -92,7 +103,7 @@ try:
             ok += 1
             time.sleep(0.15)
         except Exception as e:
-            print(f'  ❌ {mq_code} {name} {e}')
+            print(f'  [ERR] {mq_code} {name} {e}')
             fail += 1
 
     # 5. 结果
@@ -104,7 +115,7 @@ try:
     print(f'\n{"="*40}')
     print(f'交易后: 持仓{len(pos_after)}只 | 现金{c.available:,.0f} | 总资产{c.nav:,.0f}')
     print(f'买入: {ok}成功 {fail}失败 | 待成交: {len(orders)}笔')
-    print(f'{"✅ 掘金=纸交=30只小众战法" if len(pos_after) >= 25 else "⚠ 需检查"}')
+    print(f'{"[OK] 掘金=纸交=30只小众战法" if len(pos_after) >= 25 else "[!] 需检查"}')
     print(f'{datetime.now():%H:%M:%S} 完成')
 
     # 写状态文件
@@ -142,8 +153,8 @@ try:
     ]:
         r = subprocess.run(cmd, shell=True, capture_output=True, text=True)
         if r.returncode != 0 and 'nothing to commit' not in r.stderr:
-            print(f'  ⚠ {cmd[:20]}: {r.stderr[:80]}')
-    print('Git推送完成 ✅')
+            print(f'  [!] {cmd[:20]}: {r.stderr[:80]}')
+    print('Git推送完成 [OK]')
 
     # 7. 10点关机
     now = datetime.now()
@@ -155,7 +166,7 @@ try:
     os.system(f'shutdown /s /t {int(wait_sec)} /f')
 
 except Exception as e:
-    print(f'❌ 异常: {e}')
+    print(f'[ERR] 异常: {e}')
     import traceback
     traceback.print_exc()
 
