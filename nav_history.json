@@ -1,14 +1,26 @@
 {
-  "strategy": "小众战法_vFinal_8F",
-  "initial_capital": 100000,
-  "start_date": "2026-06-23",
-  "last_date": "2026-06-25",
-  "nav_history": [
-    {"date": "2026-06-23", "nav": 99970, "cash": 9439, "market_value": 90531, "pnl": -30, "pnl_pct": -0.03, "positions": 30},
-    {"date": "2026-06-24", "nav": 97833, "cash": 9439, "market_value": 88394, "pnl": -2167, "pnl_pct": -2.17, "positions": 30},
-    {"date": "2026-06-25", "nav": 98552, "cash": 9289, "market_value": 89263, "pnl": -1448, "pnl_pct": -1.45, "positions": 30}
-  ],
-  "latest": {"nav": 98552, "return": -1.45, "return_amount": -1448},
-  "benchmark": {"name": "HS300", "start": 4919, "latest": 5020, "return": 2.05},
-  "note": "跑输HS300约3.5%, 因子来自6/18(3425只), 科技/AI板块不在选股池"
+  "date": "2026-06-25",
+  "strategies": {
+    "小众战法": {
+      "nav": 98552,
+      "return": -1.45,
+      "start": "6/23"
+    },
+    "ML_vFinal": {
+      "nav": 102106.0,
+      "return": 2.16,
+      "start": "6/18"
+    },
+    "ETF轮动": {
+      "nav": 108832.0,
+      "return": 8.94,
+      "start": "6/18"
+    }
+  },
+  "benchmark": {
+    "name": "HS300",
+    "start": 4942,
+    "latest": 5020,
+    "return": 1.59
+  }
 }
